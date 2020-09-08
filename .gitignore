@@ -1,2 +1,3 @@
-.vscdoe
-.venv
+.vscode/
+.idea/
+.venv/
