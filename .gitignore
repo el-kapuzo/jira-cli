@@ -2,3 +2,5 @@
 .idea/
 .venv/
 jira.config
+*.log
+*.py[co]
