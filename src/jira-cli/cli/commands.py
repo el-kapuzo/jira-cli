@@ -35,4 +35,6 @@ def ls():
 
 
 if __name__ == "__main__":
-    ls()
+    for issue in getJira().search_issues(getJql()):
+        pass
+    print(dir(issue))
