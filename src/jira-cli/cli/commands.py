@@ -23,16 +23,16 @@ def getJql():
     return getConfig()["settings"]["jql"]
 
 
-@click.group
+@click.group()
 def jira():
     pass
 
 
-# @jira.command
-# def ls():
-#     pass
+@jira.command()
+def ls():
+    for issue in getJira().search_issues(getJql()):
+        click.echo(f"{issue.key}: {issue.fields.summary}")
 
 
 if __name__ == "__main__":
-    issues = getJira().search_issues(getJql())
-    titles = [issue.fields.title for issue in issues]
+    ls()
