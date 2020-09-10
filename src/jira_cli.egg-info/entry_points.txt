@@ -1,4 +1,0 @@
-
-        [console_scripts]
-        jira=jira_cli.cli.commands:jira
-        

@@ -1,7 +1,0 @@
-README.md
-setup.py
-src/jira_cli.egg-info/PKG-INFO
-src/jira_cli.egg-info/SOURCES.txt
-src/jira_cli.egg-info/dependency_links.txt
-src/jira_cli.egg-info/entry_points.txt
-src/jira_cli.egg-info/top_level.txt
