@@ -4,3 +4,4 @@
 jira.config
 *.log
 *.py[co]
+src/jira_cli.egg-info
