@@ -1,5 +1,4 @@
 import os
-
 import setuptools
 
 with open("README.md", "r") as fh:
@@ -11,12 +10,16 @@ with open(
     requirements = [line for line in requirementsFile]
 
 setuptools.setup(
-    name="jira-cli", # TODO find good name
+    name="jira_cli",  # TODO find good name
     version="0.0.1a",
     author="el-kap",
     author_email="cherrybomb@up2parts.com",
-    python_requires=">=3.6,<3.7",
+    python_requires=">=3.6,<3.9",
     description="CL-Commands to interact with jira",
-    package_dir={'': 'src'},
-    packages=setuptools.find_packages("src")
+    package_dir={"": "src"},
+    packages=setuptools.find_packages("src"),
+    entry_points="""
+        [console_scripts]
+        jira=jira_cli.cli.commands:jira
+        """,
 )
