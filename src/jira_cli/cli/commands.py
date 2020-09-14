@@ -54,8 +54,16 @@ def details(issuekey):
     click.echo_via_pager(getJira().issue(issuekey).fields.description)
 
 
+@jira.command()
+@click.argument("issueKey", type=str)
+@click.argument("timeInHours", type=str)
+def logtime(issuekey, timeinhours):
+    jira = getJira()
+    jira.add_worklog(issuekey, timeSpent=timeinhours)
+
+
 if __name__ == "__main__":
-    print(getJira().issue("DP-999").fields.description)
+    print(dir(getJira().issue("DP-1000").fields))
     # for issue in getJira().search_issues(getJql()):
     #     print(issue.fields.issuetype)
     #     print(type(issue.fields.issuetype))
