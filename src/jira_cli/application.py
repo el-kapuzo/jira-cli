@@ -1,10 +1,15 @@
 import pathlib
 import toml
 import jira as jira_api
+from jira_cli.commands import list_stories, list_subtasks, print_details
 
 
 class Application:
-    commands = {}
+    commands = {
+        "stories": list_stories,
+        "subtasks": list_subtasks,
+        "details": print_details,
+    }
 
     def __init__(self, jira, jql):
         self.jira = jira
