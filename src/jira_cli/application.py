@@ -1,7 +1,14 @@
 import pathlib
 import toml
 import jira as jira_api
-from jira_cli.commands import list_stories, list_subtasks, print_details
+from jira_cli.commands import (
+    list_stories,
+    list_subtasks,
+    print_details,
+    log_time,
+    transition_issue,
+    track_task,
+)
 
 
 class Application:
@@ -9,6 +16,9 @@ class Application:
         "stories": list_stories,
         "subtasks": list_subtasks,
         "details": print_details,
+        "worklog": log_time,
+        "update": transition_issue,
+        "track": track_task,
     }
 
     def __init__(self, jira, jql):
