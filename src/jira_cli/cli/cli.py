@@ -24,9 +24,9 @@ def subtasks(issue_key):
 
 
 @jira.command()
-def details(issuekey):
+@click.argument("issue-key")
+def details(issue_key):
     getApplication().dispatch_command("details", issue_key)
-    click.echo_via_pager(getJira().issue(issuekey).fields.description)
 
 
 @jira.command()
