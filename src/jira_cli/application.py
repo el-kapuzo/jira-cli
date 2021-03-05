@@ -3,6 +3,8 @@ import click
 import toml
 import prompt_toolkit
 import jira as jira_api
+
+from .completion import JiraCompleter
 from jira_cli.commands import (
     list_stories,
     list_subtasks,
@@ -37,7 +39,7 @@ class Application:
                 print(e)
 
     def run(self):
-        session = prompt_toolkit.PromptSession("PYT >>> ")
+        session = prompt_toolkit.PromptSession("PYT >>> ", completer=JiraCompleter())
         running = True
         while running:
             inputs = session.prompt().split()
