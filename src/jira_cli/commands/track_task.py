@@ -1,6 +1,7 @@
 import time
 
 import click
+from prompt_toolkit import prompt
 
 from .transition import transition_issue
 from .log_time import log_time
@@ -8,7 +9,7 @@ from .log_time import log_time
 
 def track_task(application, issuekey):
     transition_issue(
-        application, "In-Progress"
+        application, "In Progress"
     )  # TODO: what is the name of the transition target
     click.echo("Press (P) to pause work, or (F) to finish work")
 
@@ -28,7 +29,7 @@ def track_task(application, issuekey):
 def _work_on(issuekey):
     pressed_button = None
     while pressed_button not in ["P", "F"]:
-        value = input(f"Working on {issuekey}... ")
+        value = prompt(f"Working on {issuekey}... ")
         pressed_button = value.upper()[0]
     return pressed_button
 

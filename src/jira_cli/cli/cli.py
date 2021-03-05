@@ -1,4 +1,5 @@
 import click
+from prompt_toolkit import PromptSession
 
 from jira_cli.application import Application
 
@@ -9,7 +10,13 @@ def getApplication():
 
 @click.group()
 def jira():
-    pass
+    print("Hello, I am jira")
+
+
+@jira.command()
+def prompt():
+    app = getApplication()
+    app.run()
 
 
 @jira.command()
@@ -31,14 +38,6 @@ def details(issue_key):
 
 @jira.command()
 @click.argument("issueKey", type=str)
-@click.argument("timeInHours", type=str)
-def logtime(issuekey, timeinhours):
-    jira = getJira()
-    jira.add_worklog(issuekey, timeSpent=timeinhours)
-
-
-if __name__ == "__main__":
-    print(dir(getJira().issue("DP-1000").fields))
-    # for issue in getJira().search_issues(getJql()):
-    #     print(issue.fields.issuetype)
-    #     print(type(issue.fields.issuetype))
+@click.argument("time", type=str)
+def logtime(issuekey, time):
+    getApplication().dispatch_command("worklog", issuekey, time)

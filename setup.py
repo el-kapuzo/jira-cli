@@ -20,6 +20,6 @@ setuptools.setup(
     packages=setuptools.find_packages("src"),
     entry_points="""
         [console_scripts]
-        jira=jira_cli.cli.commands:jira
+        jira=jira_cli.cli.cli:jira
         """,
 )

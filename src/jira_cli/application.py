@@ -1,5 +1,7 @@
 import pathlib
+import click
 import toml
+import prompt_toolkit
 import jira as jira_api
 from jira_cli.commands import (
     list_stories,
@@ -24,9 +26,32 @@ class Application:
     def __init__(self, jira, jql):
         self.jira = jira
         self.issues = jira.search_issues(jql, maxResults=False)
+        self._debugging = True
 
     def dispatch_command(self, command_string, *args):
-        self.commands[command_string](self, *args)
+        try:
+            self.commands[command_string](self, *args)
+        except Exception as e:
+            click.echo(f"Command {command_string} not known", color="red")
+            if self._debugging:
+                print(e)
+
+    def run(self):
+        session = prompt_toolkit.PromptSession("PYT >>> ")
+        running = True
+        while running:
+            inputs = session.prompt().split()
+            if len(inputs) == 0:
+                continue
+            if len(inputs) > 1:
+                command, args = inputs[0], inputs[1:]
+            else:
+                command = inputs[0]
+                args = []
+            if command == "exit":
+                running = False
+            else:
+                self.dispatch_command(command, *args)
 
     @classmethod
     def buildFromSettings(cls, settings):
