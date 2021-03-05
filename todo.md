@@ -4,3 +4,7 @@
 + [x] Create subtask
 + [x] Add time estimate to subtask
 + [ ] Autocompletion
+  + [x] For initial commands
+  + [ ] For arguments to commands
++ [ ] Decorator to register commands and completion providers
+

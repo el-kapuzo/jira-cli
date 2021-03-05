@@ -34,6 +34,7 @@ def _work_on(issuekey):
     return pressed_button
 
 
-# TODO
-def _elapsed_time_to_jira_time(elapsed_time):
-    pass
+def _elapsed_time_to_jira_time(elapsed_time_in_s):
+    elapsed_time = int(elapsed_time_in_s)
+    elapsed_time_in_min = elapsed_time // 60
+    return f"{elapsed_time_in_min}m"
