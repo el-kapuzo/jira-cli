@@ -39,7 +39,9 @@ class Application:
                 print(e)
 
     def run(self):
-        session = prompt_toolkit.PromptSession("PYT >>> ", completer=JiraCompleter())
+        session = prompt_toolkit.PromptSession(
+            "PYT >>> ", completer=JiraCompleter(self)
+        )
         running = True
         while running:
             inputs = session.prompt().split()

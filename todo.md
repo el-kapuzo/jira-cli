@@ -6,5 +6,5 @@
 + [ ] Autocompletion
   + [x] For initial commands
   + [ ] For arguments to commands
+  + [ ] Fuzzy matching against title of (sub)task
 + [ ] Decorator to register commands and completion providers
-

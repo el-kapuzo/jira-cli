@@ -16,6 +16,10 @@ class JiraCompleter(completion.Completer):
         "exit": no_completions_provider,
     }
 
+    def __init__(self, application, *args, **kwargs):
+        self.application = application
+        super().__init__(*args, **kwargs)
+
     def get_completions(self, document, complete_event):
         word_before_cursor = document.get_word_before_cursor()
         document_text_list = document.text.split(" ")
@@ -24,7 +28,7 @@ class JiraCompleter(completion.Completer):
         else:
             yield from self.completion_providers.get(
                 document_text_list[0], no_completions_provider
-            )()
+            )(self.application)
 
     def _base_command_completions(self, word_before_cursor):
         commands = list(self.completion_providers.keys())
