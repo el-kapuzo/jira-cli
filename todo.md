@@ -2,30 +2,33 @@
 + [x] Transition Task
 + [x] Work on task -> maybe transition to active and track time
 + [x] Add time estimate to subtask
++ [ ] Add comment to issue
++ [ ] View comment
++ [ ] List all comments on an issue
++ [ ] Download all attachments
++ [ ] Add a attachment
++ [ ] Set JQL
++ [ ] Resync
 
-+ [-] Autocompletion
-  + [x] For initial commands
-  + [x] For arguments to commands
-  + [x] Refactor: create utilites to generate completions from a list of issues
-  + [x] Autocompletion based on summary (title) of tasks
-  + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
-  + [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
-  + [ ] Options to sort by type
-  + [ ] Make history persistent over sessions?
-  + [ ] Fuzzy matching against title of (sub)task
-  + [ ] Auto-completions for transitions
 
-+ [-] Decorator to register commands and completion providers
-  + [ ] Auto-import all commands files to apply decorators
+## Autocompletion Features
++ [x] For initial commands
++ [x] For arguments to commands
++ [x] Refactor: create utilites to generate completions from a list of issues
++ [x] Autocompletion based on summary (title) of tasks
++ [x] Fuzzy completion for commands
++ [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
++ [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
++ [ ] Options to sort by type
++ [ ] Make history persistent over sessions?
++ [ ] Fuzzy matching against title of (sub)task
++ [ ] Auto-completions for transitions
++ [ ] Include basic JQL completion engine?
 
-+ [ ] Commands:
-  + [ ] Add comment to issue
-  + [ ] View comment
-  + [ ] List all comments on an issue
-  + [ ] Download all attachments
-  + [ ] Set JQL
-    + [ ] Include basic JQL completion engine?
+## House-Keeping
++ [ ] Auto-import all commands files to apply decorators
 
-+ [ ] Visual improvements
-  + [ ] Better looking prompt?
+## Make it look nicer
++ [ ] Colorful prompt
+
 
