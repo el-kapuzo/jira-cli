@@ -5,7 +5,7 @@ from prompt_toolkit import prompt
 
 from jira_cli.decorators import command, completion_provider
 from jira_cli.queries import all_subtasks
-from jira_cli.completion import completions_from_issues
+from jira_cli.completion import IssueCompleter
 
 from .transition import transition_issue
 from .log_time import log_time
@@ -49,6 +49,6 @@ def _elapsed_time_to_jira_time(elapsed_time_in_s):
 
 
 @completion_provider(NAME)
-def track_task_completions(application, word_before_cursor):
+def track_task_completions(application):
     issues = all_subtasks(application.issues)
-    yield from completions_from_issues(issues, word_before_cursor)
+    return IssueCompleter(issues)

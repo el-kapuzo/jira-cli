@@ -1,6 +1,6 @@
 from jira_cli.queries import all_subtasks
 from jira_cli.decorators import command, completion_provider
-from jira_cli.completion import completions_from_issues
+from jira_cli.completion import IssueCompleter
 
 NAME = "worklog"
 
@@ -15,6 +15,6 @@ def log_time(application, issuekey, time):
 
 
 @completion_provider(NAME)
-def log_time_completions(application, word_before_cursor):
+def log_time_completions(application):
     issues = all_subtasks(application.issues)
-    yield from completions_from_issues(issues, word_before_cursor)
+    return IssueCompleter(issues)

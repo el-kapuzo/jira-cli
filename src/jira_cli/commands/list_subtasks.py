@@ -1,7 +1,7 @@
 import click
 from jira_cli.queries import all_stories
 from jira_cli.decorators import command, completion_provider
-from jira_cli.completion import completions_from_issues
+from jira_cli.completion import IssueCompleter
 
 NAME = "subtasks"
 
@@ -14,6 +14,5 @@ def list_subtasks(application, issueKey):
 
 
 @completion_provider(NAME)
-def completion_provieder_list_stories(application, word_before_cursor):
-    issues = all_stories(application.issues)
-    yield from completions_from_issues(issues, word_before_cursor)
+def completion_provieder_list_stories(application):
+    return IssueCompleter(all_stories(application.issues))

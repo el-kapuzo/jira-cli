@@ -1,5 +1,5 @@
 from .application import Application
-from .completer import JiraCompleter
+from .completion import JiraCompleter
 
 
 def command(name):
@@ -10,5 +10,5 @@ def command(name):
 
 def completion_provider(name):
     def decorator(fun):
-        JiraCompleter.completion_providers[name] = fun
+        JiraCompleter.completion_factories[name] = fun
         return fun

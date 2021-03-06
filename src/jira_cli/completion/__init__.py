@@ -1,4 +1,5 @@
-from .complete_issues import completions_from_issues
+from .issue_completer import IssueCompleter
+from .jira_completer import JiraCompleter
 
 
-__all__ = ["completions_from_issues"]
+__all__ = ["JiraCompleter", "IssueCompleter"]

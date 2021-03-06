@@ -3,7 +3,7 @@ import click
 
 from jira_cli.decorators import command, completion_provider
 from jira_cli.queries import all_stories
-from jira_cli.completion import completions_from_issues
+from jira_cli.completion import IssueCompleter
 
 NAME = "details"
 
@@ -14,6 +14,6 @@ def print_details(application, issueKey):
 
 
 @completion_provider(NAME)
-def details_completion_provider(application, word_before_cursor):
+def details_completion_provider(application):
     issues = all_stories(application.issues)
-    yield from completions_from_issues(issues)
+    return IssueCompleter(issues)

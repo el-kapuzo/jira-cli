@@ -1,7 +1,6 @@
 import click
-from prompt_toolkit.completion import Completion
 from jira_cli.queries import all_stories
-from jira_cli.decorators import command, completion_provider
+from jira_cli.decorators import command
 
 
 @command("stories")
