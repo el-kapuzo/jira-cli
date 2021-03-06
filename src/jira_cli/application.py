@@ -4,7 +4,7 @@ import toml
 import prompt_toolkit
 import jira as jira_api
 
-from .completion import JiraCompleter
+from .completer import JiraCompleter
 from jira_cli.commands import (
     list_stories,
     list_subtasks,

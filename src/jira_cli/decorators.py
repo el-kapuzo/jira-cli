@@ -1,5 +1,5 @@
 from .application import Application
-from .completion import JiraCompleter
+from .completer import JiraCompleter
 
 
 def command(name):
