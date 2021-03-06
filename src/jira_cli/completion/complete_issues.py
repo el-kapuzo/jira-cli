@@ -3,9 +3,17 @@ from prompt_toolkit.completion import Completion
 
 def completions_from_issues(issues, word_before_cursor):
     for issue in issues:
-        if issue.key.startswith(word_before_cursor):
+        issuekey = issue.key
+        summary = issue.fields.summary
+        if _is_completion(issuekey, summary, word_before_cursor):
             yield Completion(
-                issue.key,
+                issuekey,
                 start_position=-len(word_before_cursor),
-                display=f"{issue.key}: {issue.fields.summary}",
+                display=f"{issuekey}: {summary}",
             )
+
+
+def _is_completion(issuekey, summary, word_before_cursor):
+    return issuekey.startswith(word_before_cursor) or summary.startswith(
+        word_before_cursor
+    )
