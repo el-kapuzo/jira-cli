@@ -9,8 +9,9 @@ NAME = "details"
 
 
 @command(NAME)
-def print_details(application, issueKey):
-    click.echo_via_pager(application.jira.issue(issueKey).fields.description)
+def print_details(application, issuekey):
+    click.echo_via_pager(application.jira.issue(issuekey).fields.description)
+    return issuekey
 
 
 @completion_provider(NAME)

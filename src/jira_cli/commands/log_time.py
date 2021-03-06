@@ -8,10 +8,12 @@ NAME = "worklog"
 @command(NAME)
 def log_time(application, issuekey, time):
     jira = application.jira
+    issue = jira.issue(issuekey)
     try:
-        jira.add_worklog(issuekey, timeSpent=time, reduceBy=time)
+        jira.add_worklog(issue, timeSpent=time, reduceBy=time)
     except Exception:
-        jira.add_worklog(issuekey, timeSpent=time)
+        jira.add_worklog(issue, timeSpent=time)
+    return issue
 
 
 @completion_provider(NAME)

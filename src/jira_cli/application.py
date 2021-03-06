@@ -5,6 +5,7 @@ import prompt_toolkit
 import jira as jira_api
 
 from .completion import JiraCompleter
+from .history import History
 from jira_cli.commands import (
     list_stories,
     list_subtasks,
@@ -28,15 +29,19 @@ class Application:
     def __init__(self, jira, jql):
         self.jira = jira
         self.issues = jira.search_issues(jql, maxResults=False)
+        self.history = History()
         self._debugging = True
 
     def dispatch_command(self, command_string, *args):
+        issue = None
         try:
-            self.commands[command_string](self, *args)
+            issue = self.commands[command_string](self, *args, history=self.history)
         except Exception as e:
             click.echo(f"Command {command_string} not known", color="red")
             if self._debugging:
                 print(e)
+        else:
+            self.history.add_command(command_string, self.jira.issue(issue), *args)
 
     def run(self):
         session = prompt_toolkit.PromptSession(

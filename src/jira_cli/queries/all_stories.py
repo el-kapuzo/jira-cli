@@ -1,5 +1,7 @@
+from .is_story import is_story
+
+
 def all_stories(issues):
-    ignoreIssueTypes = {"Sub-task"}
     for issue in issues:
-        if str(issue.fields.issuetype) not in ignoreIssueTypes:
+        if is_story(issue):
             yield issue

@@ -32,6 +32,7 @@ def track_task(application, issuekey):
         transition_issue(
             application, issuekey, "Done"
         )  # TODO: what is the name of the transition target
+    return issuekey
 
 
 def _work_on(issuekey):

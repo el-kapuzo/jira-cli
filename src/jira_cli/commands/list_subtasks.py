@@ -7,10 +7,11 @@ NAME = "subtasks"
 
 
 @command(NAME)
-def list_subtasks(application, issueKey):
-    story = application.jira.issue(issueKey)
+def list_subtasks(application, issuekey):
+    story = application.jira.issue(issuekey)
     for issue in subtasks_of_issue(story):
         click.echo(f"{issue.key}: {issue.fields.summary}")
+    return issuekey
 
 
 @completion_provider(NAME)

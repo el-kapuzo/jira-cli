@@ -1,4 +1,7 @@
+from .is_subtask import is_subtask
+
+
 def all_subtasks(issues):
     for issue in issues:
-        if str(issue.fields.issuetype) in {"Sub-taks"}:
+        if is_subtask(issue):
             yield issue

@@ -20,6 +20,7 @@ def transition_issue(application, issuekey, *resolution_names):
         jira.transition_issue(issue, resolution_id)
     else:
         click.echo("[WARN]: Transition not possible", color="red")
+    return issue
 
 
 @completion_provider(NAME)
