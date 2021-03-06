@@ -17,7 +17,7 @@ NAME = "track"
 @command(NAME)
 def track_task(application, issuekey):
     transition_issue(
-        application, "In Progress"
+        application, issuekey, "In Progress"
     )  # TODO: what is the name of the transition target
     click.echo("Press (P) to pause work, or (F) to finish work")
 
@@ -30,7 +30,7 @@ def track_task(application, issuekey):
     log_time(application, issuekey, worklog_time)
     if pressed_button == "F":
         transition_issue(
-            application, "Done"
+            application, issuekey, "Done"
         )  # TODO: what is the name of the transition target
 
 

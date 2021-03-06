@@ -1,5 +1,6 @@
 import collections
 import prompt_toolkit.completion as completion
+import prompt_toolkit
 
 
 def get_dummy_provider(*args, **kwargs):
@@ -21,11 +22,13 @@ class JiraCompleter(completion.Completer):
         super().__init__(*args, **kwargs)
 
     def get_completions(self, document, complete_event):
-        document_text_list = document.text.split(" ")
-        if len(document_text_list) < 2:
+        text = document.text_before_cursor
+        if " " not in text:
             yield from self.command_completer.get_completions(document, complete_event)
         else:
-            command = document_text_list[0]
-            yield from self.completors[command].get_completions(
-                document, complete_event
-            )
+            command = text.split()[0]
+            completer = self.completors[command]
+            remaining_text = text[len(command) :].lstrip()
+            move_cursor = len(text) - len(remaining_text)
+            remaining_document = prompt_toolkit.Document(remaining_text, move_cursor)
+            yield from completer.get_completions(remaining_document, complete_event)
