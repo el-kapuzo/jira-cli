@@ -19,6 +19,7 @@
 + [x] Fuzzy completion for commands
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
 + [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
++ [ ] Different Handling of PR Review tasks in history
 + [ ] Options to sort by type
 + [ ] Make history persistent over sessions?
 + [ ] Fuzzy matching against title of (sub)task
@@ -26,9 +27,15 @@
 + [ ] Include basic JQL completion engine?
 
 ## House-Keeping
-+ [ ] Auto-import all commands files to apply decorators
++ [x] Auto-import all commands files to apply decorators
 
 ## Make it look nicer
 + [ ] Colorful prompt
++ [ ] Presenter
+  + [ ] Issue Presenter
+  + [ ] Detail Presenter
+  + [ ] Comment Presenter
+  + [ ] Render richText (maybe try `pip install rich`)
+  + [ ] Dispatch on issue type
 
 
