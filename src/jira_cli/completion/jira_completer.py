@@ -4,7 +4,7 @@ import prompt_toolkit
 
 
 def get_dummy_provider(*args, **kwargs):
-    return completion.DummyProvider()
+    return completion.DummyCompleter()
 
 
 class JiraCompleter(completion.Completer):
@@ -17,7 +17,9 @@ class JiraCompleter(completion.Completer):
             for command, completion_factory in self.completion_factories.items()
         }
         self.command_completer = completion.FuzzyCompleter(
-            completion.WordCompleter(list(self.completors.keys()), ignore_case=False)
+            completion.WordCompleter(
+                list(self.application.commands.keys()), ignore_case=True
+            )
         )
         super().__init__(*args, **kwargs)
 
@@ -26,9 +28,6 @@ class JiraCompleter(completion.Completer):
         if " " not in text:
             yield from self.command_completer.get_completions(document, complete_event)
         else:
-            command = text.split()[0]
-            completer = self.completors[command]
-            remaining_text = text[len(command) :].lstrip()
-            move_cursor = len(text) - len(remaining_text)
-            remaining_document = prompt_toolkit.Document(remaining_text, move_cursor)
-            yield from completer.get_completions(remaining_document, complete_event)
+            command = text.split(" ")[0]
+            completer = self.completors.get(command, completion.DummyCompleter())
+            yield from completer.get_completions(document, complete_event)

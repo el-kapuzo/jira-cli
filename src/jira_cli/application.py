@@ -4,51 +4,40 @@ import toml
 import prompt_toolkit
 import jira as jira_api
 
+from jira_cli.issue_presenter import IssuePresenter
+
 from .completion import JiraCompleter
-from .history import History
-from jira_cli.commands import (
-    list_stories,
-    list_subtasks,
-    print_details,
-    log_time,
-    transition_issue,
-    track_task,
-)
+from .history import CommandHistory
 
 
 class Application:
-    commands = {
-        "stories": list_stories,
-        "subtasks": list_subtasks,
-        "details": print_details,
-        "worklog": log_time,
-        "update": transition_issue,
-        "track": track_task,
-    }
+    commands = {}
 
     def __init__(self, jira, jql):
         self.jira = jira
         self.issues = jira.search_issues(jql, maxResults=False)
-        self.history = History()
+        self.history = CommandHistory()
+        self.presenter = IssuePresenter()
         self._debugging = True
+        self.running = False
 
     def dispatch_command(self, command_string, *args):
-        issue = None
+        # issue = None
         try:
-            issue = self.commands[command_string](self, *args, history=self.history)
+            self.commands[command_string](self, *args)
         except Exception as e:
             click.echo(f"Command {command_string} not known", color="red")
             if self._debugging:
                 print(e)
-        else:
-            self.history.add_command(command_string, self.jira.issue(issue), *args)
+        # else:
+        # self.history.add_command(command_string, self.jira.issue(issue), *args)
 
     def run(self):
         session = prompt_toolkit.PromptSession(
             "PYT >>> ", completer=JiraCompleter(self)
         )
-        running = True
-        while running:
+        self.running = True
+        while self.running:
             inputs = session.prompt().split()
             if len(inputs) == 0:
                 continue
@@ -57,10 +46,7 @@ class Application:
             else:
                 command = inputs[0]
                 args = []
-            if command == "exit":
-                running = False
-            else:
-                self.dispatch_command(command, *args)
+            self.dispatch_command(command, *args)
 
     @classmethod
     def buildFromSettings(cls, settings):
