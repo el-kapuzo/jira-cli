@@ -14,7 +14,10 @@
 + [x] For initial commands
 + [x] For arguments to commands
 + [x] Refactor: create utilites to generate completions from a list of issues
-+ [x] Autocompletion based on summary (title) of tasks
++ [-] Autocompletion based on summary (title) of tasks
+  + [x] Implement basic autocompletieon
+  + [ ] Make it case insensitve
+  + [ ] Add option to ignore tasks based on their status
 + [x] Fuzzy completion for commands
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
 + [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
