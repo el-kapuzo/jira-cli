@@ -2,9 +2,8 @@
 + [x] Transition Task
 + [x] Work on task -> maybe transition to active and track time
 + [x] Add time estimate to subtask
-+ [ ] Add comment to issue
-+ [ ] View comment
-+ [ ] List all comments on an issue
++ [x] Add comment to issue
++ [x] List all comments on an issue
 + [ ] Download all attachments
 + [ ] Add a attachment
 + [ ] Set JQL
@@ -20,11 +19,15 @@
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
 + [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
 + [ ] Different Handling of PR Review tasks in history
++ [ ] Ignore Commands in History:
+  + [ ] Comment (add / view)
+  + [ ] Transition
 + [ ] Options to sort by type
 + [ ] Make history persistent over sessions?
 + [ ] Fuzzy matching against title of (sub)task
-+ [ ] Auto-completions for transitions
++ [x] Auto-completions for transitions
 + [ ] Include basic JQL completion engine?
++ [ ] Display Meta: Issue-Type (or Parent Story)?
 
 ## House-Keeping
 + [x] Auto-import all commands files to apply decorators
@@ -32,10 +35,8 @@
 ## Make it look nicer
 + [ ] Colorful prompt
 + [ ] Presenter
-  + [ ] Issue Presenter
+  + [x] Issue Presenter
   + [ ] Detail Presenter
   + [ ] Comment Presenter
   + [ ] Render richText (maybe try `pip install rich`)
   + [ ] Dispatch on issue type
-
-
