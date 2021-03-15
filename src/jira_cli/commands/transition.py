@@ -1,5 +1,5 @@
 import click
-from jira_cli.completion.transition_completer import TransitionCompleter
+from jira_cli.completion import TransitionCompleter
 
 
 from jira_cli.decorators import command, completion_provider
