@@ -1,9 +1,9 @@
 import click
+from jira_cli.completion.transition_completer import TransitionCompleter
 
 
 from jira_cli.decorators import command, completion_provider
 from jira_cli.queries import all_subtasks
-from jira_cli.completion import IssueCompleter
 
 
 NAME = "update"
@@ -26,4 +26,4 @@ def transition_issue(application, issuekey, *resolution_names):
 @completion_provider(NAME)
 def transitions_completions(application):
     issues = all_subtasks(application.issues)
-    return IssueCompleter(issues)
+    return TransitionCompleter(issues)
