@@ -16,7 +16,7 @@
 + [x] Refactor: create utilites to generate completions from a list of issues
 + [-] Autocompletion based on summary (title) of tasks
   + [x] Implement basic autocompletieon
-  + [ ] Make it case insensitve
+  + [x] Make it case insensitve
   + [ ] Add option to ignore tasks based on their status
 + [x] Fuzzy completion for commands
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
@@ -27,7 +27,7 @@
   + [ ] Transition
 + [ ] Options to sort by type
 + [ ] Make history persistent over sessions?
-+ [ ] Fuzzy matching against title of (sub)task
++ [ ] Fuzzy matching against title of issue?
 + [x] Auto-completions for transitions
 + [ ] Include basic JQL completion engine?
 + [ ] Display Meta: Issue-Type (or Parent Story)?
@@ -41,5 +41,10 @@
   + [x] Issue Presenter
   + [ ] Detail Presenter
   + [ ] Comment Presenter
-  + [ ] Render richText (maybe try `pip install rich`)
-  + [ ] Dispatch on issue type
+  + [ ] Render richText (maybe try `pip install rich` and a rst->md converter)
+
+## Configuration
++ [ ] Colormaps
++ [ ] Presenter Options (once presenter are implemented)
++ [ ] Define available Transitions
++ [ ] Define available Story-Types

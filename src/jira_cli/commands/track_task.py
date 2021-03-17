@@ -30,9 +30,7 @@ def track_task(application, issuekey):
     worklog_time = _elapsed_time_to_jira_time(elapsed_time)
     log_time(application, issuekey, worklog_time)
     if pressed_button == "F":
-        transition_issue(
-            application, issuekey, "Done"
-        )  # TODO: what is the name of the transition target
+        transition_issue(application, issuekey, "Done")
     return issuekey
 
 

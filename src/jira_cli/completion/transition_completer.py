@@ -16,7 +16,7 @@ class TransitionCompleter(completion.Completer):
         else:
             typed_for_transition = " ".join(typed_words[2:])
             for word in self.transitions:
-                if word.startswith(typed_for_transition):
+                if word.lower().startswith(typed_for_transition.lower()):
                     yield completion.Completion(
                         word, start_position=-len(typed_for_transition)
                     )

@@ -1,5 +1,4 @@
 import click
-from jira_cli.queries import is_story, is_subtask
 
 
 class IssuePresenter:
@@ -8,8 +7,12 @@ class IssuePresenter:
 
     def print_issue(self, issue):
         color = None
-        if is_story(issue):
-            color = self.color_map.get(str(issue.fields.issuetype))
-        if is_subtask(issue):
-            color = self.color_map.get(issue.fields.status.name)
+        issue_status = issue.fields.status.name
+        issue_type = str(issue.fields.issuetype)
+        if issue_status == "Done":
+            color = self.color_map.get("Done")
+        else:
+            color = self.color_map.get(issue_status)
+            if issue_type == "Bug":
+                color = self.color_map.get(issue_type)
         click.secho(f"    {issue.key}: {issue.fields.summary}", fg=color)
