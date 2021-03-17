@@ -26,4 +26,4 @@ def transition_issue(application, issuekey, *resolution_names):
 @completion_provider(NAME)
 def transitions_completions(application):
     issues = all_subtasks(application.issues)
-    return TransitionCompleter(issues)
+    return TransitionCompleter(issues, ignore_statuses=["Done"])

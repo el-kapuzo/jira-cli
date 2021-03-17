@@ -19,4 +19,4 @@ def log_time(application, issuekey, time):
 @completion_provider(NAME)
 def log_time_completions(application):
     issues = all_subtasks(application.issues)
-    return IssueCompleter(issues)
+    return IssueCompleter(issues, ignore_statuses=["Done"])

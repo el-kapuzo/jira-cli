@@ -3,8 +3,8 @@ from .issue_completer import IssueCompleter
 
 
 class TransitionCompleter(completion.Completer):
-    def __init__(self, issues, *args, **kwargs) -> None:
-        self.issueCompleter = IssueCompleter(issues)
+    def __init__(self, issues, *args, ignore_statuses=None, **kwargs) -> None:
+        self.issueCompleter = IssueCompleter(issues, ignore_statuses)
         self.transitions = ["To-Do", "In Progress", "Done"]
         super().__init__(*args, **kwargs)
 
