@@ -15,24 +15,37 @@ class Application:
 
     def __init__(self, jira, jql):
         self.jira = jira
+        self.jql = jql
         self.issues = jira.search_issues(jql, maxResults=False)
+        self.history = None
+        self.presenter = None
+        self.running = False
+        self._debugging = True
+
+    def sync(self):
+        self.issues = self.jira.search_issues(self.jql, maxResults=False)
         self.history = CommandHistory()
         self.presenter = IssuePresenter()
-        self._debugging = True
-        self.running = False
 
     def dispatch_command(self, command_string, *args):
         # issue = None
         try:
             self.commands[command_string](self, *args)
+        except KeyError as e:
+            click.secho(f"Command {command_string} not known", color="red")
+            if self._debugging:
+                print(e)
         except Exception as e:
-            click.echo(f"Command {command_string} not known", color="red")
+            click.secho(
+                f"Invalid arguments {args} for command {command_string}", color="red"
+            )
             if self._debugging:
                 print(e)
         # else:
         # self.history.add_command(command_string, self.jira.issue(issue), *args)
 
     def run(self):
+        self.sync()
         session = prompt_toolkit.PromptSession(
             "PYT >>> ", completer=JiraCompleter(self)
         )

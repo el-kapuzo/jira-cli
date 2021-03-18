@@ -16,4 +16,4 @@ def list_subtasks(application, issuekey):
 
 @completion_provider(NAME)
 def completion_provieder_list_stories(application):
-    return IssueCompleter(all_stories(application.issues))
+    return IssueCompleter(all_stories(application.issues), ignore_statuses=["Done"])
