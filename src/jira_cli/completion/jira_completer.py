@@ -1,6 +1,5 @@
 import collections
 import prompt_toolkit.completion as completion
-import prompt_toolkit
 
 
 def get_dummy_provider(*args, **kwargs):
@@ -12,16 +11,20 @@ class JiraCompleter(completion.Completer):
 
     def __init__(self, application, *args, **kwargs):
         self.application = application
-        self.completors = {
-            command: completion_factory(application)
-            for command, completion_factory in self.completion_factories.items()
-        }
+        self.completors = None
         self.command_completer = completion.FuzzyCompleter(
             completion.WordCompleter(
                 list(self.application.commands.keys()), ignore_case=True
             )
         )
+        self.sync()
         super().__init__(*args, **kwargs)
+
+    def sync(self):
+        self.completors = {
+            command: completion_factory(self.application)
+            for command, completion_factory in self.completion_factories.items()
+        }
 
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor

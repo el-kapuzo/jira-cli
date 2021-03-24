@@ -17,15 +17,15 @@ class Application:
         self.jira = jira
         self.jql = jql
         self.issues = jira.search_issues(jql, maxResults=False)
-        self.history = None
-        self.presenter = None
+        self.history = CommandHistory()
+        self.presenter = IssuePresenter()
         self.running = False
+        self.completer = JiraCompleter(self)
         self._debugging = True
 
     def sync(self):
         self.issues = self.jira.search_issues(self.jql, maxResults=False)
-        self.history = CommandHistory()
-        self.presenter = IssuePresenter()
+        self.completer.sync()
 
     def dispatch_command(self, command_string, *args):
         # issue = None
@@ -46,9 +46,7 @@ class Application:
 
     def run(self):
         self.sync()
-        session = prompt_toolkit.PromptSession(
-            "PYT >>> ", completer=JiraCompleter(self)
-        )
+        session = prompt_toolkit.PromptSession("PYT >>> ", completer=self.completer)
         self.running = True
         while self.running:
             inputs = session.prompt().split()
