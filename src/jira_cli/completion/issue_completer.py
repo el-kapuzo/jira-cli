@@ -29,6 +29,11 @@ class IssueCompleter(Completer):
 
 
 def _is_completion(issuekey, summary: str, already_typed_text: str):
-    return (already_typed_text in issuekey) or summary.lower().startswith(
-        already_typed_text.lower()
-    )
+    if already_typed_text.islower():
+        return (already_typed_text in issuekey) or summary.lower().startswith(
+            already_typed_text.lower()
+        )
+    else:
+        return (already_typed_text in issuekey) or summary.startswith(
+            already_typed_text
+        )
