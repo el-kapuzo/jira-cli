@@ -6,7 +6,7 @@
 + [x] List all comments on an issue
 + [x] Add subtask to story
   + [x] Completer: IssueCompleter for all stories
-  + [ ] Include estimate
+  + [x] Include estimate
 + [ ] Add estimate
 + [ ] Download all attachments
 + [ ] Add a attachment
