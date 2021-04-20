@@ -8,7 +8,7 @@ NAME = "comment"
 @command(NAME)
 def add_comment(application, issuekey):
     # TODO: maybe
-    body = prompt("#", multiline=True)
+    body = prompt("#   ", multiline=True)
     application.jira.add_comment(issuekey, body)
     return issuekey
 

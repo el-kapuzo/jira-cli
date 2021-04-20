@@ -4,8 +4,10 @@
 + [x] Add time estimate to subtask
 + [x] Add comment to issue
 + [x] List all comments on an issue
-+ [ ] Add subtask to story
-  + [ ] Completer: IssueCompleter for all stories
++ [x] Add subtask to story
+  + [x] Completer: IssueCompleter for all stories
+  + [ ] Include estimate
++ [ ] Add estimate
 + [ ] Download all attachments
 + [ ] Add a attachment
 + [ ] Set JQL
