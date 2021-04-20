@@ -9,7 +9,6 @@
 + [ ] Download all attachments
 + [ ] Add a attachment
 + [ ] Set JQL
-+ [x] Resync
 
 
 ## Autocompletion Features
@@ -20,7 +19,7 @@
   + [x] Implement basic autocompletieon
   + [x] Make it case insensitve
   + [x] Add option to ignore tasks based on their status
-  + [ ] _smart case_
+  + [x] _smart case_
 + [x] Fuzzy completion for commands
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
 + [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
