@@ -5,3 +5,4 @@ jira.config
 *.log
 *.py[co]
 src/*egg-info*/
+fields.json

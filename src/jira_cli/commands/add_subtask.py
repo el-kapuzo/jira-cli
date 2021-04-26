@@ -13,12 +13,13 @@ def add_subtask(application, storyKey):
     estimate = prompt("estimate:  ")
     if estimate == "" or estimate is None:
         estimate = "0m"
+    time = _transform_estimate(estimate)
     fields = {
         "project": {"key": "PYT"},
-        "summary": summary,
-        "timeoriginalestimate": estimate,
-        "timeestimate": estimate,
+        "suptmmary": summary,
         "issuetype": "Sub-task",
+        "timeestimate": time,
+        "timeoriginalestimate": time,
         "parent": {"key": storyKey},
     }
     application.jira.create_issue(fields=fields)
@@ -27,3 +28,14 @@ def add_subtask(application, storyKey):
 @completion_provider(NAME)
 def add_task_completion_provider(application):
     return IssueCompleter(all_stories(application.issues))
+
+
+def _transform_estimate(estimate):
+    time, unit = float(estimate[:-1]), estimate[-1]
+    if unit == "m":
+        time = time * 60
+    elif unit == "h":
+        time = time * 60 * 60
+    else:
+        raise ValueError("Unknown time unit")
+    return int(time)
