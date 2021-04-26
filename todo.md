@@ -7,10 +7,11 @@
 + [x] Add subtask to story
   + [x] Completer: IssueCompleter for all stories
   + [x] Include estimate
-+ [ ] Add estimate
++ [x] Add estimate
 + [ ] Download all attachments
 + [ ] Add a attachment
 + [ ] Set JQL
+  + [ ] shortcuts for current sprint, all future sprints
 
 
 ## Autocompletion Features
