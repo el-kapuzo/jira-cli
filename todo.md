@@ -13,6 +13,17 @@
 + [ ] Set JQL
   + [ ] shortcuts for current sprint, all future sprints
 
+## Refactor: Resource Based commands
++ [ ] Subcomand completer
++ [ ] (Sub)task
+  + [ ] list
+  + [ ] new
+  + [ ] update 
+  + [ ] track
+  + [ ] worklog
+  + [ ] ...
+  + [ ] comment
+  + [ ] list comments
 
 ## Autocompletion Features
 + [x] For initial commands
@@ -39,6 +50,11 @@
 
 ## House-Keeping
 + [x] Auto-import all commands files to apply decorators
++ [ ] install dependencies
++ [ ] maybe do not use click and colorama
+  + [ ] all output is handled by prompt_toolkit
+  + [ ] startup is done without click (optional)
+
 
 ## Make it look nicer
 + [ ] Colorful prompt
