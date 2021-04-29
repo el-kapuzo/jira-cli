@@ -15,10 +15,11 @@
 
 ## Refactor: Resource Based commands
 + [ ] Subcomand completer
+  + [ ] Impleent a version of the nested completer (one nesting, but fuzzy word compl)
 + [x] (Sub)task
   + [x] list
   + [x] new
-  + [x] update 
+  + [x] update
   + [x] track
   + [x] worklog
   + [x] estimate
