@@ -1,6 +1,8 @@
 from .application import Application
 from .completion import JiraCompleter
 
+def resource(cls):
+    Application.resources[cls.__name__.lower()] = cls
 
 def command(name):
     def decorator(fun):

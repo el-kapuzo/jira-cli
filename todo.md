@@ -15,13 +15,13 @@
 
 ## Refactor: Resource Based commands
 + [ ] Subcomand completer
-+ [ ] (Sub)task
-  + [ ] list
-  + [ ] new
-  + [ ] update 
-  + [ ] track
-  + [ ] worklog
-  + [ ] estimate
++ [x] (Sub)task
+  + [x] list
+  + [x] new
+  + [x] update 
+  + [x] track
+  + [x] worklog
+  + [x] estimate
 + [ ] comment
   + [ ] new
   + [ ] list comments

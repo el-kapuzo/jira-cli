@@ -12,11 +12,13 @@ from .history import CommandHistory
 
 class Application:
     commands = {}
+    resources = {}
 
     def __init__(self, jira, jql):
         self.jira = jira
         self.jql = jql
         self.issues = jira.search_issues(jql, maxResults=False)
+        # self.resources = {name: cls() for name, cls in self.resources}
         self.history = CommandHistory()
         self.presenter = IssuePresenter()
         self.running = False
@@ -30,6 +32,7 @@ class Application:
     def dispatch_command(self, command_string, *args):
         # issue = None
         try:
+            # self.resources[command_string].dispatch_command(self, *args)
             self.commands[command_string](self, *args)
         except KeyError as e:
             click.secho(f"Command {command_string} not known", color="red")
