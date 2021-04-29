@@ -21,9 +21,16 @@
   + [ ] update 
   + [ ] track
   + [ ] worklog
-  + [ ] ...
-  + [ ] comment
+  + [ ] estimate
++ [ ] comment
+  + [ ] new
   + [ ] list comments
++ [ ] stories
+  + [ ] list all
+  + [ ] list all subtasks
++ [ ] attachment
+  + [ ] new
+  + [ ] download
 
 ## Autocompletion Features
 + [x] For initial commands
