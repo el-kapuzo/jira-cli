@@ -23,9 +23,9 @@
   + [x] track
   + [x] worklog
   + [x] estimate
-+ [ ] comment
-  + [ ] new
-  + [ ] list comments
++ [x] comment
+  + [x] new
+  + [x] list comments
 + [ ] stories
   + [ ] list all
   + [ ] list all subtasks
