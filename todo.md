@@ -1,3 +1,6 @@
+## Bugs
++ [ ] add estimate to subtask (both on create and on its own) does not work
+  + Possible solution: there might be a `timetracking` sub-object.
 ## Implement the following commands
 + [x] Transition Task
 + [x] Work on task -> maybe transition to active and track time
@@ -14,8 +17,6 @@
   + [ ] shortcuts for current sprint, all future sprints
 
 ## Refactor: Resource Based commands
-+ [ ] Subcomand completer
-  + [ ] Impleent a version of the nested completer (one nesting, but fuzzy word compl)
 + [x] (Sub)task
   + [x] list
   + [x] new
@@ -29,9 +30,16 @@
 + [ ] stories
   + [ ] list all
   + [ ] list all subtasks
+  + [ ] new
 + [ ] attachment
   + [ ] new
   + [ ] download
++ [ ] completion engine
+  + [x] fuzzy nested completer
+  + [ ] (sub)tasks
+  + [ ] comment
+  + [ ] stories
+  + [ ] attachment
 
 ## Autocompletion Features
 + [x] For initial commands
@@ -67,10 +75,10 @@
 ## Make it look nicer
 + [ ] Colorful prompt
 + [ ] Presenter
-  + [x] Issue Presenter
-  + [ ] Detail Presenter
-  + [ ] Comment Presenter
-  + [ ] Render richText (maybe try `pip install rich` and a rst->md converter)
++ [ ] Issue Presenter
++ [ ] Detail Presenter
++ [ ] Comment Presenter
++ [ ] Render richText (maybe try `pip install rich` and a rst->md converter)
 
 ## Configuration
 + [ ] Colormaps

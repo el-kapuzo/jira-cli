@@ -1,13 +1,9 @@
-import os
 import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-with open(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "requirements.txt"), "r"
-) as requirementsFile:
-    requirements = [line for line in requirementsFile]
+requirements = ["prompt_toolkit", "click", "colrama", "jira"]
 
 setuptools.setup(
     name="jira_cli",  # TODO find good name
