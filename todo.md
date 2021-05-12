@@ -1,6 +1,7 @@
 ## Bugs
 + [ ] add estimate to subtask (both on create and on its own) does not work
   + Possible solution: there might be a `timetracking` sub-object.
+
 ## Implement the following commands
 + [x] Transition Task
 + [x] Work on task -> maybe transition to active and track time
@@ -17,29 +18,31 @@
   + [ ] shortcuts for current sprint, all future sprints
 
 ## Refactor: Resource Based commands
-+ [x] (Sub)task
-  + [x] list
-  + [x] new
-  + [x] update
-  + [x] track
-  + [x] worklog
-  + [x] estimate
-+ [x] comment
-  + [x] new
-  + [x] list comments
-+ [ ] stories
-  + [ ] list all
-  + [ ] list all subtasks
-  + [ ] new
-+ [ ] attachment
-  + [ ] new
-  + [ ] download
-+ [ ] completion engine
-  + [x] fuzzy nested completer
-  + [ ] (sub)tasks
-  + [ ] comment
++ [ ] Implement a suitable completion engine
+  + [x] Fuzzy nested completer
+  + [x] Resource can create its completer
++ [ ] Add possibility to define aliases
++ [ ] Implement the following resources with commands / queries
+  + [x] (Sub)task
+    + [x] list
+    + [x] new
+    + [x] update
+    + [x] track
+    + [x] worklog
+    + [x] estimate
+  + [x] comment
+    + [x] new
+    + [x] list comments
   + [ ] stories
+    + [ ] list all
+    + [ ] list all subtasks
+    + [ ] new
   + [ ] attachment
+    + [ ] new
+    + [ ] download
+  + [ ] config
+    + [ ] define a config object
+    + [ ] set config field (i.e. jql)
 
 ## Autocompletion Features
 + [x] For initial commands
@@ -66,9 +69,9 @@
 
 ## House-Keeping
 + [x] Auto-import all commands files to apply decorators
-+ [ ] install dependencies
++ [x] install dependencies
 + [ ] maybe do not use click and colorama
-  + [ ] all output is handled by prompt_toolkit
+  + [ ] all output is handled by `prompt_toolkit`
   + [ ] startup is done without click (optional)
 
 
@@ -78,7 +81,7 @@
 + [ ] Issue Presenter
 + [ ] Detail Presenter
 + [ ] Comment Presenter
-+ [ ] Render richText (maybe try `pip install rich` and a rst->md converter)
++ [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
 
 ## Configuration
 + [ ] Colormaps
