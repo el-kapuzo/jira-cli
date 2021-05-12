@@ -1,12 +1,24 @@
+from jira_cli.completion import FuzzyNestedCompleter
+
+
 class ResourceMixin:
     def dispatch_command(self, app, command, *args):
         command_handler = self.command_handlers.get(command, self.default_handler)
         return command_handler(app, *args)
 
     def default_handler(self, app, *args):
-        pass
+        self.help()
+
+    def get_completer(self, app):
+        return FuzzyNestedCompleter(
+            {
+                name: completion_provider(app)
+                for name, completion_provider in self.completion_provider
+            }
+        )
 
     def help(self):
+        # TODO: implement something
         pass
 
     @classmethod
