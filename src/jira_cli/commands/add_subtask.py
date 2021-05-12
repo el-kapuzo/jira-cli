@@ -16,10 +16,8 @@ def add_subtask(application, storyKey):
     time = _transform_estimate(estimate)
     fields = {
         "project": {"key": "PYT"},
-        "suptmmary": summary,
+        "summary": summary,
         "issuetype": "Sub-task",
-        "timeestimate": time,
-        "timeoriginalestimate": time,
         "parent": {"key": storyKey},
     }
     application.jira.create_issue(fields=fields)
