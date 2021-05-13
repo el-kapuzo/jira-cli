@@ -22,20 +22,24 @@ class Application:
         self._debugging = True
 
     def build_completer(self):
-        return FuzzyNestedCompleter(
-            {
-                name: resource.get_completer(self)
-                for name, resource in self.resources.items()
-            }
-        )
+        completer_dict = {
+            name: resource.get_completer(self)
+            for name, resource in self.resources.items()
+        }
+        completer_dict["exit"] = prompt_toolkit.completion.DummyCompleter()
+        completer_dict["sync"] = prompt_toolkit.completion.DummyCompleter()
+        return FuzzyNestedCompleter()
 
     def sync(self):
         self.issues = self.jira.search_issues(self.jql, maxResults=False)
         self.completer = self.build_completer()
 
     def dispatch_command(self, command_string, *args):
-        if command_string == "sync":
+        if command_string == "exit":
             self.running = False
+            return
+        if command_string == "sync":
+            self.sync()
             return
         try:
             self.resources[command_string].dispatch_command(self, *args)

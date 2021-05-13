@@ -18,7 +18,7 @@
   + [ ] shortcuts for current sprint, all future sprints
 
 ## Refactor: Resource Based commands
-+ [ ] Implement a suitable completion engine
++ [x] Implement a suitable completion engine
   + [x] Fuzzy nested completer
   + [x] Resource can create its completer
 + [ ] Add possibility to define aliases
