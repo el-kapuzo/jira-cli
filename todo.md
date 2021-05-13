@@ -35,7 +35,7 @@
     + [x] list comments
   + [x] stories
     + [ ] list
-    + [ ] list all subtasks
+    + [x] list all subtasks
     + [ ] new
   + [x] attachment
     + [ ] list
