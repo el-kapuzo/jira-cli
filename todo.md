@@ -33,11 +33,12 @@
   + [x] comment
     + [x] new
     + [x] list comments
-  + [ ] stories
-    + [ ] list all
+  + [x] stories
+    + [ ] list
     + [ ] list all subtasks
     + [ ] new
-  + [ ] attachment
+  + [x] attachment
+    + [ ] list
     + [ ] new
     + [ ] download
   + [ ] config
@@ -80,10 +81,6 @@
 
 ## Make it look nicer
 + [ ] Colorful prompt
-+ [ ] Presenter
-+ [ ] Issue Presenter
-+ [ ] Detail Presenter
-+ [ ] Comment Presenter
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
 
 ## Configuration
