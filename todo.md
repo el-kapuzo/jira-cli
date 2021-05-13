@@ -43,6 +43,9 @@
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
++ [ ] Clean Up
+  + [ ] Remove JiraCompleter
+  + [ ] Remove Presenter and render directly inside command
 
 ## Autocompletion Features
 + [x] For initial commands
