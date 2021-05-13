@@ -4,36 +4,41 @@ import toml
 import prompt_toolkit
 import jira as jira_api
 
+from jira_cli.completion import FuzzyNestedCompleter
 from jira_cli.issue_presenter import IssuePresenter
-
-from .completion import JiraCompleter
-from .history import CommandHistory
 
 
 class Application:
-    commands = {}
     resources = {}
 
     def __init__(self, jira, jql):
         self.jira = jira
         self.jql = jql
         self.issues = jira.search_issues(jql, maxResults=False)
-        # self.resources = {name: cls() for name, cls in self.resources}
-        self.history = CommandHistory()
+        self.resources = {name: cls() for name, cls in self.resources}
         self.presenter = IssuePresenter()
+        self.completer = self.build_completer()
         self.running = False
-        self.completer = JiraCompleter(self)
         self._debugging = True
+
+    def build_completer(self):
+        return FuzzyNestedCompleter(
+            {
+                name: resource.get_completer(self)
+                for name, resource in self.resources.items()
+            }
+        )
 
     def sync(self):
         self.issues = self.jira.search_issues(self.jql, maxResults=False)
-        self.completer.sync()
+        self.completer = self.build_completer()
 
     def dispatch_command(self, command_string, *args):
-        # issue = None
+        if command_string == "sync":
+            self.running = False
+            return
         try:
-            # self.resources[command_string].dispatch_command(self, *args)
-            self.commands[command_string](self, *args)
+            self.resources[command_string].dispatch_command(self, *args)
         except KeyError as e:
             click.secho(f"Command {command_string} not known", color="red")
             if self._debugging:
@@ -44,11 +49,8 @@ class Application:
             )
             if self._debugging:
                 print(e)
-        # else:
-        # self.history.add_command(command_string, self.jira.issue(issue), *args)
 
     def run(self):
-        self.sync()
         session = prompt_toolkit.PromptSession("PYT >>> ", completer=self.completer)
         self.running = True
         while self.running:

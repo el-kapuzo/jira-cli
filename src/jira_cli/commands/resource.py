@@ -13,7 +13,7 @@ class ResourceMixin:
         return FuzzyNestedCompleter(
             {
                 name: completion_provider(app)
-                for name, completion_provider in self.completion_provider
+                for name, completion_provider in self.completion_provider.items()
             }
         )
 
