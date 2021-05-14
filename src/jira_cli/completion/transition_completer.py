@@ -11,10 +11,10 @@ class TransitionCompleter(completion.Completer):
     def get_completions(self, document, complete_event):
         already_typed_text = document.text_before_cursor
         typed_words = already_typed_text.split(" ")
-        if len(typed_words) < 3:
+        if len(typed_words) < 1 or not typed_words[0].startswith("PYT-"):
             yield from self.issueCompleter.get_completions(document, complete_event)
         else:
-            typed_for_transition = " ".join(typed_words[2:])
+            typed_for_transition = " ".join(typed_words[1:])
             for word in self.transitions:
                 if word.lower().startswith(typed_for_transition.lower()):
                     yield completion.Completion(

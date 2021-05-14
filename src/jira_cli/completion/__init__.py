@@ -7,6 +7,6 @@ from .transition_completer import TransitionCompleter
 __all__ = [
     "JiraCompleter",
     "IssueCompleter",
-    " FuzzyNestedCompleter",
+    "FuzzyNestedCompleter",
     "TransitionCompleter",
 ]

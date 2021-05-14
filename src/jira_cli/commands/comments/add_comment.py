@@ -1,11 +1,11 @@
 from prompt_toolkit import prompt
 from jira_cli.completion import IssueCompleter
-from .comments import Comments
+from .comments import Comment
 
 NAME = "new"
 
 
-@Comments.command(NAME)
+@Comment.command(NAME)
 def add_comment(application, issuekey):
     # TODO: maybe
     body = prompt("#   ", multiline=True)
@@ -13,6 +13,6 @@ def add_comment(application, issuekey):
     return issuekey
 
 
-@Comments.completion_provider(NAME)
+@Comment.completion_provider(NAME)
 def add_comment_completer(application):
     return IssueCompleter(application.issues)

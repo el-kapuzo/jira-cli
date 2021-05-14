@@ -1,6 +1,7 @@
 ## Bugs
 + [ ] add estimate to subtask (both on create and on its own) does not work
   + Possible solution: there might be a `timetracking` sub-object.
++ [ ] issue completer does not work after refactoring
 
 ## Implement the following commands
 + [x] Transition Task
@@ -18,7 +19,7 @@
   + [ ] shortcuts for current sprint, all future sprints
 
 ## Refactor: Resource Based commands
-+ [ ] Implement a suitable completion engine
++ [x] Implement a suitable completion engine
   + [x] Fuzzy nested completer
   + [x] Resource can create its completer
 + [ ] Add possibility to define aliases
@@ -33,16 +34,20 @@
   + [x] comment
     + [x] new
     + [x] list comments
-  + [ ] stories
-    + [ ] list all
-    + [ ] list all subtasks
+  + [x] stories
+    + [ ] list
+    + [x] list all subtasks
     + [ ] new
-  + [ ] attachment
+  + [x] attachment
+    + [ ] list
     + [ ] new
     + [ ] download
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
++ [ ] Clean Up
+  + [ ] Remove JiraCompleter
+  + [ ] Remove Presenter and render directly inside command
 
 ## Autocompletion Features
 + [x] For initial commands
@@ -77,10 +82,6 @@
 
 ## Make it look nicer
 + [ ] Colorful prompt
-+ [ ] Presenter
-+ [ ] Issue Presenter
-+ [ ] Detail Presenter
-+ [ ] Comment Presenter
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
 
 ## Configuration

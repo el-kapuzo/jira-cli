@@ -6,7 +6,7 @@ from prompt_toolkit import prompt
 from jira_cli.queries import all_subtasks
 from jira_cli.completion import IssueCompleter
 
-from .task_resource import Task
+from .task import Task
 from .update import transition_issue
 from .log_time import log_time
 

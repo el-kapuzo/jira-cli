@@ -10,12 +10,11 @@ class ResourceMixin:
         self.help()
 
     def get_completer(self, app):
-        return FuzzyNestedCompleter(
-            {
-                name: completion_provider(app)
-                for name, completion_provider in self.completion_provider
-            }
-        )
+        completer_map = {
+            name: completion_provider(app)
+            for name, completion_provider in self.completion_providers.items()
+        }
+        return FuzzyNestedCompleter(completer_map)
 
     def help(self):
         # TODO: implement something
@@ -32,7 +31,7 @@ class ResourceMixin:
     @classmethod
     def completion_provider(cls, name):
         def decorator(func):
-            cls.completion_provider[name] = func
+            cls.completion_providers[name] = func
             return func
 
         return decorator
