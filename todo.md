@@ -29,19 +29,23 @@
     + [x] new
     + [x] update
     + [x] track
-    + [x] worklog
     + [x] estimate
   + [x] comment
     + [x] new
     + [x] list comments
+    + [ ] print
   + [x] stories
-    + [ ] list
     + [x] list all subtasks
+    + [ ] list
     + [ ] new
+    + [ ] print details
   + [x] attachment
     + [ ] list
     + [ ] new
     + [ ] download
+  + [ ] worklog
+    + [ ] new
+    + [ ] list
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
