@@ -1,7 +1,7 @@
 from jira_cli.queries import all_subtasks
 from jira_cli.completion import IssueCompleter
 
-from .task_resource import Task
+from .task import Task
 
 
 NAME = "worklog"

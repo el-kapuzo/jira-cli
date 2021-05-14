@@ -1,7 +1,7 @@
 import click
 from jira_cli.completion import TransitionCompleter
 
-from .task_resource import Task
+from .task import Task
 from jira_cli.queries import all_subtasks
 
 

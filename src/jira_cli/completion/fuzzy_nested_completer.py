@@ -1,11 +1,11 @@
 from prompt_toolkit import completion, document as doc
 
 
-class FuzzyNestedCompleter(completion.FuzzyNestedCompleter):
-    def __int__(self, completer_map, *args, **kwargs):
+class FuzzyNestedCompleter(completion.Completer):
+    def __init__(self, completer_map, *args, **kwargs):
         self.completer_map = completer_map
         self.base_completer = completion.FuzzyWordCompleter(list(completer_map.keys()))
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor.lstrip()

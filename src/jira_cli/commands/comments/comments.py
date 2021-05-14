@@ -3,6 +3,6 @@ from ..resource import ResourceMixin
 
 
 @resource
-class Comments(ResourceMixin):
+class Comment(ResourceMixin):
     command_handlers = {}
     completion_providers = {}

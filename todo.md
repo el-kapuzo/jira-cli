@@ -1,6 +1,7 @@
 ## Bugs
 + [ ] add estimate to subtask (both on create and on its own) does not work
   + Possible solution: there might be a `timetracking` sub-object.
++ [ ] issue completer does not work after refactoring
 
 ## Implement the following commands
 + [x] Transition Task

@@ -21,5 +21,5 @@ def _importModules(*path):
 # is executed for each policy
 # This way, you can just add or delete policies
 # this snipped will manage this automatically for you
-for path in (("commands",), ("commands", "taks"), ("commands", "comments")):
+for path in (("commands", "stories"), ("commands", "tasks"), ("commands", "comments")):
     _importModules(*path)

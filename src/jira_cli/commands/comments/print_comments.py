@@ -1,12 +1,12 @@
 from jira_cli.completion import IssueCompleter
 import click
 
-from .comments import Comments
+from .comments import Comment
 
 NAME = "show"
 
 
-@Comments.command(NAME)
+@Comment.command(NAME)
 def print_comments(application, issuekey):
     jira = application.jira
     comments = jira.comments(issuekey)
@@ -18,6 +18,6 @@ def print_comments(application, issuekey):
     return issuekey
 
 
-@Comments.completion_provider(NAME)
+@Comment.completion_provider(NAME)
 def print_comments_completer(application):
     return IssueCompleter(application.issues)

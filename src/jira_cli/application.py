@@ -15,7 +15,7 @@ class Application:
         self.jira = jira
         self.jql = jql
         self.issues = jira.search_issues(jql, maxResults=False)
-        self.resources = {name: cls() for name, cls in self.resources}
+        self.resources = {name: cls() for name, cls in self.resources.items()}
         self.presenter = IssuePresenter()
         self.completer = self.build_completer()
         self.running = False
@@ -28,7 +28,7 @@ class Application:
         }
         completer_dict["exit"] = prompt_toolkit.completion.DummyCompleter()
         completer_dict["sync"] = prompt_toolkit.completion.DummyCompleter()
-        return FuzzyNestedCompleter()
+        return FuzzyNestedCompleter(completer_dict)
 
     def sync(self):
         self.issues = self.jira.search_issues(self.jql, maxResults=False)
