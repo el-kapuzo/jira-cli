@@ -10,10 +10,8 @@ class FuzzyNestedCompleter(completion.Completer):
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor.lstrip()
         stripped_len = len(document.text_before_cursor) - len(text)
-        words = text.split()
-        if len(words) <= 1:
-            yield from self.base_completer.get_completions(document, complete_event)
-        else:
+        if " " in text:
+            words = text.split()
             completer = self.completer_map.get(words[0], completion.DummyCompleter())
             remaining_text = text[len(words[0]) :].lstrip()
             move_cursor = len(text) - len(remaining_text) + stripped_len
@@ -21,3 +19,5 @@ class FuzzyNestedCompleter(completion.Completer):
                 remaining_text, cursor_position=document.cursor_position - move_cursor
             )
             yield from completer.get_completions(new_document, complete_event)
+        else:
+            yield from self.base_completer.get_completions(document, complete_event)
