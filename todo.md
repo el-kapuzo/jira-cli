@@ -46,6 +46,7 @@
   + [ ] worklog
     + [ ] new
     + [ ] list
+    + [ ] delete
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
@@ -81,12 +82,15 @@
 + [x] install dependencies
 + [ ] maybe do not use click and colorama
   + [ ] all output is handled by `prompt_toolkit`
+  + [ ] use `richt` to render colorful text
   + [ ] startup is done without click (optional)
 
 
 ## Make it look nicer
 + [ ] Colorful prompt
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
+  + [ ] Maybe rich can render (a subset of) rst markup directly?
+  + [ ] Implement a simple rst -> md converter
 
 ## Configuration
 + [ ] Colormaps
