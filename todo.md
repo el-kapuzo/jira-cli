@@ -27,7 +27,7 @@
   + [x] (Sub)task
     + [x] list
     + [x] new
-    + [x] update
+    + [x update
     + [x] track
     + [x] estimate
   + [x] comment
@@ -38,7 +38,7 @@
     + [x] list all subtasks
     + [x] list
     + [ ] new
-    + [ ] print details
+    + [x] print details
   + [x] attachment
     + [ ] list
     + [ ] new
@@ -50,9 +50,6 @@
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
-+ [ ] Clean Up
-  + [ ] Remove JiraCompleter
-  + [ ] Remove Presenter and render directly inside command
 
 ## Autocompletion Features
 + [x] For initial commands
