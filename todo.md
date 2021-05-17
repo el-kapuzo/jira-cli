@@ -36,7 +36,7 @@
     + [ ] print
   + [x] stories
     + [x] list all subtasks
-    + [ ] list
+    + [x] list
     + [ ] new
     + [ ] print details
   + [x] attachment
