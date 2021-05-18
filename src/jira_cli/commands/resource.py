@@ -1,19 +1,28 @@
+from prompt_toolkit.completion import DummyCompleter
 from jira_cli.completion import FuzzyNestedCompleter
 
 
 class ResourceMixin:
     def dispatch_command(self, app, command, *args):
         command_handler = self.command_handlers.get(command, self.default_handler)
-        return command_handler(app, *args)
+        if len(args) == 0:
+            return command_handler(app)
+        else:
+            return command_handler(app, *args)
 
     def default_handler(self, app, *args):
         self.help()
 
     def get_completer(self, app):
         completer_map = {
-            name: completion_provider(app)
-            for name, completion_provider in self.completion_providers.items()
+            name: DummyCompleter() for name in self.command_handlers.keys()
         }
+        completer_map.update(
+            {
+                name: completion_provider(app)
+                for name, completion_provider in self.completion_providers.items()
+            }
+        )
         return FuzzyNestedCompleter(completer_map)
 
     def help(self):

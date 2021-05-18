@@ -2,6 +2,7 @@
 + [ ] add estimate to subtask (both on create and on its own) does not work
   + Possible solution: there might be a `timetracking` sub-object.
 + [ ] issue completer does not work after refactoring
++ [ ] resource.commands without completion do not show up in autocompletion
 
 ## Implement the following commands
 + [x] Transition Task
@@ -27,7 +28,7 @@
   + [x] (Sub)task
     + [x] list
     + [x] new
-    + [x update
+    + [x] update
     + [x] track
     + [x] estimate
   + [x] comment

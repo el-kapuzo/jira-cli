@@ -14,13 +14,11 @@ def add_subtask(application, storyKey):
     estimate = prompt("estimate:  ")
     if estimate == "" or estimate is None:
         estimate = "0m"
-    time = _transform_estimate(estimate)
     fields = {
         "project": {"key": "PYT"},
         "summary": summary,
         "issuetype": "Sub-task",
-        "timeestimate": time,
-        "timeoriginalestimate": time,
+        "timetracking": {"orignialEstimate": estimate},
         "parent": {"key": storyKey},
     }
     application.jira.create_issue(fields=fields)

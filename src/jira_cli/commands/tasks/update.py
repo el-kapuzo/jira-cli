@@ -5,7 +5,7 @@ from .task import Task
 from jira_cli.queries import all_subtasks
 
 
-NAME = "update"
+NAME = "move"
 
 
 @Task.command(NAME)
