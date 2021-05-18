@@ -18,7 +18,7 @@ def add_subtask(application, storyKey):
         "project": {"key": "PYT"},
         "summary": summary,
         "issuetype": "Sub-task",
-        "timetracking": {"orignialEstimate": estimate},
+        "timetracking": {"originalEstimate": estimate},
         "parent": {"key": storyKey},
     }
     application.jira.create_issue(fields=fields)
