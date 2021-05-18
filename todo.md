@@ -23,7 +23,7 @@
 + [x] Implement a suitable completion engine
   + [x] Fuzzy nested completer
   + [x] Resource can create its completer
-  + [ ] Attachment id completer
+  + [x] Attachment id completer
 + [ ] Add possibility to define aliases
 + [ ] Implement the following resources with commands / queries
   + [x] (Sub)task
