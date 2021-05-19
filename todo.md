@@ -45,6 +45,7 @@
     + [x] list
     + [ ] new
     + [x] download
+      + [ ] maybe add path argument
   + [ ] worklog
     + [ ] new
     + [ ] list
@@ -52,6 +53,7 @@
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
+    + [ ] default download path
 
 ## Autocompletion Features
 + [x] For initial commands
