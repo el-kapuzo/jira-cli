@@ -14,11 +14,18 @@ class Application:
     def __init__(self, jira, jql):
         self.jira = jira
         self.jql = jql
-        self.issues = jira.search_issues(jql, maxResults=False)
+        # TODO: use a dict?
+        self.issues = list(
+            jira.search_issues(
+                jql, fields=["attachment", "issuetype"], maxResults=False
+            )
+        )
         self.resources = {name: cls() for name, cls in self.resources.items()}
         self.presenter = IssuePresenter()
-        self.completer = self.build_completer()
         self.running = False
+        self.session = prompt_toolkit.PromptSession(
+            "PYT >>> ", completer=self.build_completer()
+        )
         self._debugging = True
 
     def build_completer(self):
@@ -31,8 +38,12 @@ class Application:
         return FuzzyNestedCompleter(completer_dict)
 
     def sync(self):
-        self.issues = self.jira.search_issues(self.jql, maxResults=False)
-        self.completer = self.build_completer()
+        self.issues = list(
+            self.jira.search_issues(
+                self.jql, fields=["attachment", "issuetype"], maxResults=False
+            )
+        )
+        self.session.completer = self.build_completer()
 
     def dispatch_command(self, command_string, *args):
         if command_string == "exit":
@@ -55,10 +66,9 @@ class Application:
                 print(e)
 
     def run(self):
-        session = prompt_toolkit.PromptSession("PYT >>> ", completer=self.completer)
         self.running = True
         while self.running:
-            inputs = session.prompt().split()
+            inputs = self.session.prompt().split()
             if len(inputs) == 0:
                 continue
             if len(inputs) > 1:

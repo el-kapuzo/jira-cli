@@ -10,11 +10,11 @@ def list_subtasks(application, issuekey=None):
     if issuekey is None:
         issues = application.issues
     else:
-        issues = application.jira.issue(issuekey)
-    for attachment in all_attachments(issues):
-        print("Id: {att.id}; Filename {att.filename} ")
+        issues = [application.jira.issue(issuekey)]
+    for att in all_attachments(issues):
+        print(f"    Id: {att.id}; Filename {att.filename} ")
 
 
 @Attachment.completion_provider(NAME)
 def completion_provieder_list_stories(application):
-    return IssueCompleter(all_stories(application.issues), ignore_statuses=["Done"])
+    return IssueCompleter(all_stories(application.issues), ignore_statuses=[])
