@@ -44,7 +44,7 @@
   + [x] attachment
     + [x] list
     + [ ] new
-    + [ ] download
+    + [x] download
   + [ ] worklog
     + [ ] new
     + [ ] list
