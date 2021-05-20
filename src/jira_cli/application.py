@@ -17,7 +17,9 @@ class Application:
         # TODO: use a dict?
         self.issues = list(
             jira.search_issues(
-                jql, fields=["attachment", "issuetype"], maxResults=False
+                jql,
+                fields=["attachment", "status", "summary", "issuetype"],
+                maxResults=False,
             )
         )
         self.resources = {name: cls() for name, cls in self.resources.items()}
@@ -40,7 +42,9 @@ class Application:
     def sync(self):
         self.issues = list(
             self.jira.search_issues(
-                self.jql, fields=["attachment", "issuetype"], maxResults=False
+                self.jql,
+                fields=["attachment", "status", "summary", "issuetype"],
+                maxResults=False,
             )
         )
         self.session.completer = self.build_completer()
