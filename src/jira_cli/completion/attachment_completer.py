@@ -1,10 +1,10 @@
-from promp_toolkit.completion import Completer, Completion
+from prompt_toolkit.completion import Completer, Completion
 
 
 class AttachmentCompleter(Completer):
     def __init__(self, attachments, *args, **kwargs):
         self.attachments = list(attachments)
-        super.__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def get_completions(self, document, completion_event):
         already_typed_text = document.text_before_cursor
