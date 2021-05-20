@@ -1,23 +1,8 @@
 ## Bugs
-+ [ ] add estimate to subtask (both on create and on its own) does not work
++ [x] add estimate to subtask (both on create and on its own) does not work
   + Possible solution: there might be a `timetracking` sub-object.
 + [x] issue completer does not work after refactoring
-+ [ ] resource.commands without completion do not show up in autocompletion
-
-## Implement the following commands
-+ [x] Transition Task
-+ [x] Work on task -> maybe transition to active and track time
-+ [x] Add time estimate to subtask
-+ [x] Add comment to issue
-+ [x] List all comments on an issue
-+ [x] Add subtask to story
-  + [x] Completer: IssueCompleter for all stories
-  + [x] Include estimate
-+ [x] Add estimate
-+ [ ] Download all attachments
-+ [ ] Add a attachment
-+ [ ] Set JQL
-  + [ ] shortcuts for current sprint, all future sprints
++ [x] resource.commands without completion do not show up in autocompletion
 
 ## Refactor: Resource Based commands
 + [x] Implement a suitable completion engine
