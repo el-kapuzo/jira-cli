@@ -1,4 +1,5 @@
-from jira_cli.completion import IssueCompleter
+from prompt_toolkit.completion import PathCompleter
+from jira_cli.completion import IssueCompleter, ChainCompleter
 from jira_cli.queries import all_stories
 
 from .attachment import Attachment
@@ -14,4 +15,6 @@ def add_attachment(app, issuekey, path):
 
 @Attachment.completion_provider(NAME)
 def new_attachment_completion_provider(app):
-    return IssueCompleter(all_stories(app.issues))
+    issue_completer = IssueCompleter(all_stories(app.issues))
+    path_completer = PathCompleter()
+    return ChainCompleter(issue_completer, path_completer)
