@@ -25,7 +25,7 @@
   + [x] stories
     + [x] list all subtasks
     + [x] list
-    + [ ] new
+    + [x] new
     + [x] print details
   + [x] attachment
     + [x] list
