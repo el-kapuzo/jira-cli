@@ -9,6 +9,7 @@
   + [x] Fuzzy nested completer
   + [x] Resource can create its completer
   + [x] Attachment id completer
+  + [ ] Worklog id completer
 + [ ] Add possibility to define aliases
 + [ ] Implement the following resources with commands / queries
   + [x] (Sub)task
@@ -32,9 +33,9 @@
     + [x] download
       + [ ] maybe add path argument
   + [ ] worklog
-    + [ ] new
-    + [ ] list
-    + [ ] delete
+    + [x] new
+    + [x] list
+    + [x] delete
   + [ ] config
     + [ ] define a config object
     + [ ] set config field (i.e. jql)
