@@ -1,4 +1,5 @@
 from prompt_toolkit import completion, document as doc
+from .issue_completer import IssueCompleter
 
 
 class ChainCompleter(completion.Completer):
@@ -10,7 +11,7 @@ class ChainCompleter(completion.Completer):
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor.lstrip()
         stripped_len = len(document.text_before_cursor) - len(text)
-        if " " in text:
+        if self.should_yield_from_second(text) in text:
             words = text.split()
             remaining_text = text[len(words[0]) :].lstrip()
             move_cursor = len(text) - len(remaining_text) + stripped_len
@@ -22,3 +23,9 @@ class ChainCompleter(completion.Completer):
             )
         else:
             yield from self.first_completer.get_completions(document, complete_event)
+
+    def should_yield_from_second(self, text):
+        if isinstance(self.first_completer, IssueCompleter):
+            return text.startswith("PYT") and " " in text
+        else:
+            return " " in text

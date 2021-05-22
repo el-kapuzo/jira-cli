@@ -1,9 +1,9 @@
 import click
-from jira_cli.completion import TransitionCompleter
-
-from .task import Task
+from prompt_toolkit.completion import FuzzyWordCompleter
+from jira_cli.completion import ChainCompleter
 from jira_cli.queries import all_subtasks
 
+from .task import Task
 
 NAME = "move"
 
@@ -25,4 +25,6 @@ def transition_issue(application, issuekey, *resolution_names):
 @Task.completion_provider(NAME)
 def transitions_completions(application):
     issues = all_subtasks(application.issues)
-    return TransitionCompleter(issues, ignore_statuses=["Done"])
+    return ChainCompleter(
+        IssueCompleter(issues), FuzzyWordCompleter(["To-Do", "In Progress", "Done"])
+    )

@@ -10,6 +10,8 @@
   + [x] Resource can create its completer
   + [x] Attachment id completer
   + [ ] Worklog id completer
+  + [ ] Comment id completer
+  + [ ] merge to "id" completer?
 + [ ] Add possibility to define aliases
 + [ ] Implement the following resources with commands / queries
   + [x] (Sub)task
@@ -20,7 +22,7 @@
     + [x] estimate
   + [x] comment
     + [x] new
-    + [ ] list comments
+    + [x] list comments
     + [x] print
   + [x] stories
     + [x] list all subtasks
@@ -29,17 +31,16 @@
     + [x] print details
   + [x] attachment
     + [x] list
-    + [ ] new
+    + [x] new
     + [x] download
       + [ ] maybe add path argument
-  + [ ] worklog
+  + [x] worklog
     + [x] new
     + [x] list
     + [x] delete
-  + [ ] config
-    + [ ] define a config object
-    + [ ] set config field (i.e. jql)
-    + [ ] default download path
+
+## Configuration
+...
 
 ## Autocompletion Features
 + [x] For initial commands
