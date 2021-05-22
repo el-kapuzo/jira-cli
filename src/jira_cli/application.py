@@ -9,7 +9,11 @@ from jira_cli.issue_presenter import IssuePresenter
 
 
 class Application:
-    aliases = {}
+    aliases = {
+        "ls": ("story", "list"),
+        "track": ("task", "track"),
+        "la": ("task", "list"),
+    }
     resources = {}
 
     def __init__(self, jira, jql):
