@@ -11,9 +11,8 @@
   + [x] Attachment id completer
   + [ ] Worklog id completer
   + [ ] Comment id completer
-  + [ ] merge to "id" completer?
-+ [ ] Add possibility to define aliases
-+ [ ] Implement the following resources with commands / queries
++ [x] Add possibility to define aliases
++ [x] Implement the following resources with commands / queries
   + [x] (Sub)task
     + [x] list
     + [x] new
