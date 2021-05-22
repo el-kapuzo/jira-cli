@@ -9,6 +9,7 @@ from jira_cli.issue_presenter import IssuePresenter
 
 
 class Application:
+    aliases = {}
     resources = {}
 
     def __init__(self, jira, jql):
@@ -28,13 +29,23 @@ class Application:
         self.session = prompt_toolkit.PromptSession(
             "PYT >>> ", completer=self.build_completer()
         )
-        self._debugging = True
 
     def build_completer(self):
         completer_dict = {
             name: resource.get_completer(self)
             for name, resource in self.resources.items()
         }
+
+        def get_completer_for_alias(resource, action):
+            resource_completer = completer_dict[resource]
+            return resource_completer.completer_map[action]
+
+        alias_completer = {
+            alias: get_completer_for_alias(*commands)
+            for alias, commands in self.aliases.items()
+        }
+        completer_dict.update(alias_completer)
+
         completer_dict["exit"] = prompt_toolkit.completion.DummyCompleter()
         completer_dict["sync"] = prompt_toolkit.completion.DummyCompleter()
         return FuzzyNestedCompleter(completer_dict)
@@ -50,6 +61,10 @@ class Application:
         self.session.completer = self.build_completer()
 
     def dispatch_command(self, command_string, *args):
+        resolved_command = self.aliases.get(command_string)
+        if resolved_command:
+            command_string = resolved_command[0]
+            args = tuple(resolved_command[1:] + list(args))
         if command_string == "exit":
             self.running = False
             return
@@ -58,16 +73,8 @@ class Application:
             return
         try:
             self.resources[command_string].dispatch_command(self, *args)
-        except KeyError as e:
-            click.secho(f"Command {command_string} not known", color="red")
-            if self._debugging:
-                print(e)
         except Exception as e:
-            click.secho(
-                f"Invalid arguments {args} for command {command_string}", color="red"
-            )
-            if self._debugging:
-                print(e)
+            print(e)
 
     def run(self):
         self.running = True
