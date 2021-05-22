@@ -33,7 +33,6 @@
     + [x] list
     + [x] new
     + [x] download
-      + [ ] maybe add path argument
   + [x] worklog
     + [x] new
     + [x] list
