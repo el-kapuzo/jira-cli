@@ -37,9 +37,6 @@
     + [x] list
     + [x] delete
 
-## Configuration
-...
-
 ## Autocompletion Features
 + [x] For initial commands
 + [x] For arguments to commands
