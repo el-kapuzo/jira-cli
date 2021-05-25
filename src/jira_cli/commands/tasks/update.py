@@ -1,6 +1,6 @@
 import click
 from prompt_toolkit.completion import FuzzyWordCompleter
-from jira_cli.completion import ChainCompleter
+from jira_cli.completion import ChainCompleter, IssueCompleter
 from jira_cli.queries import all_subtasks
 
 from .task import Task

@@ -11,8 +11,8 @@ from jira_cli.issue_presenter import IssuePresenter
 class Application:
     aliases = {
         "ls": ("story", "list"),
-        "track": ("task", "track"),
-        "la": ("task", "list"),
+        "t": ("task", "track"),
+        "lt": ("task", "list"),
     }
     resources = {}
 
@@ -68,7 +68,7 @@ class Application:
         resolved_command = self.aliases.get(command_string)
         if resolved_command:
             command_string = resolved_command[0]
-            args = tuple(resolved_command[1:] + list(args))
+            args = resolved_command[1:] + args
         if command_string == "exit":
             self.running = False
             return

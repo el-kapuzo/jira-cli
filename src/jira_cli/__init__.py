@@ -26,5 +26,6 @@ for path in (
     ("commands", "tasks"),
     ("commands", "comments"),
     ("commands", "attachment"),
+    ("commands", "worklog"),
 ):
     _importModules(*path)

@@ -11,7 +11,7 @@ class ChainCompleter(completion.Completer):
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor.lstrip()
         stripped_len = len(document.text_before_cursor) - len(text)
-        if self.should_yield_from_second(text) in text:
+        if self.should_yield_from_second(text):
             words = text.split()
             remaining_text = text[len(words[0]) :].lstrip()
             move_cursor = len(text) - len(remaining_text) + stripped_len
