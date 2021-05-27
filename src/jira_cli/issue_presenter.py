@@ -1,4 +1,4 @@
-import click
+import rich
 
 
 class IssuePresenter:
@@ -15,4 +15,4 @@ class IssuePresenter:
             color = self.color_map.get(issue_status)
             if issue_type == "Bug":
                 color = self.color_map.get(issue_type)
-        click.secho(f"    {issue.key}: {issue.fields.summary}", fg=color)
+        rich.print(f"    [{color}][bold]{issue.key}[/bold]: {issue.fields.summary}")
