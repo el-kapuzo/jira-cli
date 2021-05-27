@@ -1,7 +1,7 @@
 import pathlib
-import click
 import toml
 import prompt_toolkit
+from prompt_toolkit.shortcuts import clear
 import jira as jira_api
 
 from jira_cli.completion import FuzzyNestedCompleter
@@ -52,6 +52,7 @@ class Application:
 
         completer_dict["exit"] = prompt_toolkit.completion.DummyCompleter()
         completer_dict["sync"] = prompt_toolkit.completion.DummyCompleter()
+        completer_dict["clear"] = prompt_toolkit.completion.DummyCompleter()
         return FuzzyNestedCompleter(completer_dict)
 
     def sync(self):
@@ -74,6 +75,9 @@ class Application:
             return
         if command_string == "sync":
             self.sync()
+            return
+        if command_string == "clear":
+            clear()
             return
         try:
             self.resources[command_string].dispatch_command(self, *args)
