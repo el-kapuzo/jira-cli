@@ -1,3 +1,4 @@
+from rich import print
 from jira_cli.queries import all_stories, all_attachments
 from jira_cli.completion import IssueCompleter
 from .attachment import Attachment
@@ -12,7 +13,7 @@ def list_subtasks(application, issuekey=None):
     else:
         issues = [application.jira.issue(issuekey)]
     for att in all_attachments(issues):
-        print(f"    Id: {att.id}; Filename {att.filename} ")
+        print(f"    [bold]Id: {att.id}[/bold]; Filename {att.filename} ")
 
 
 @Attachment.completion_provider(NAME)
