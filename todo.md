@@ -4,6 +4,14 @@
 + [x] issue completer does not work after refactoring
 + [x] resource.commands without completion do not show up in autocompletion
 
+
+## Make it look nicer
++ [ ] Colorful prompt
+  + [ ] Use `pprompt_toolkit.print_formatted_text`
++ [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
+  + [ ] Implement a simple rst -> md converter
+
+
 ## Refactor: Resource Based commands
 + [x] Implement a suitable completion engine
   + [x] Fuzzy nested completer
@@ -68,12 +76,6 @@
   + [ ] use `richt` to render colorful text
   + [ ] startup is done without click (optional)
 
-
-## Make it look nicer
-+ [ ] Colorful prompt
-+ [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
-  + [ ] Maybe rich can render (a subset of) rst markup directly?
-  + [ ] Implement a simple rst -> md converter
 
 ## Configuration
 + [ ] Colormaps
