@@ -46,6 +46,7 @@
     + [x] delete
 
 ## Autocompletion Features
++ [ ] Display Meta: Issue-Type (or Parent Story)?
 + [x] For initial commands
 + [x] For arguments to commands
 + [x] Refactor: create utilites to generate completions from a list of issues
@@ -63,10 +64,8 @@
   + [ ] Transition
 + [ ] Options to sort by type
 + [ ] Make history persistent over sessions?
-+ [ ] Fuzzy matching against title of issue?
 + [x] Auto-completions for transitions
 + [ ] Include basic JQL completion engine?
-+ [ ] Display Meta: Issue-Type (or Parent Story)?
 
 ## House-Keeping
 + [x] Auto-import all commands files to apply decorators
