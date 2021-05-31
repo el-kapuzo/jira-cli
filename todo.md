@@ -71,8 +71,7 @@
 + [x] Auto-import all commands files to apply decorators
 + [x] install dependencies
 + [ ] maybe do not use click and colorama
-  + [ ] all output is handled by `prompt_toolkit`
-  + [ ] use `richt` to render colorful text
+  + [ ] all output is handled by `prompt_toolkit` and `rich`
   + [ ] startup is done without click (optional)
 
 
