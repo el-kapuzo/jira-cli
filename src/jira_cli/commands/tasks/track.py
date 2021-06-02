@@ -35,7 +35,9 @@ def track_task(application, issuekey):
 
 def _wait_for_resolution():
     pressed_button = None
-    click.echo("Print (P) for pause  or (F) to finish work")
+    print_formatted_text(
+        HTML("Print <i>(P)</i> for pause  or <i>(F)</i> to finish work")
+    )
     while pressed_button not in ["P", "F"]:
         value = prompt("(P) / (F) > ")
         pressed_button = value.upper()[0]
