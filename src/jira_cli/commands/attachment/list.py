@@ -1,4 +1,7 @@
-from rich import print
+import prompt_toolkit
+
+
+from prompt_toolkit import print_formatted_text, HTML
 from jira_cli.queries import all_stories, all_attachments
 from jira_cli.completion import IssueCompleter
 from .attachment import Attachment
@@ -13,7 +16,9 @@ def list_subtasks(application, issuekey=None):
     else:
         issues = [application.jira.issue(issuekey)]
     for att in all_attachments(issues):
-        print(f"    [bold]Id: {att.id}[/bold]; Filename {att.filename} ")
+        print_formatted_text(
+            HTML(f"    <b>Id: {att.id}</b>; Filename: {att.filename} ")
+        )
 
 
 @Attachment.completion_provider(NAME)

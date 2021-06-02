@@ -1,7 +1,6 @@
 import time
 
-import click
-from prompt_toolkit import prompt
+from prompt_toolkit import prompt, print_formatted_text, HTML
 
 from jira_cli.queries import all_subtasks
 from jira_cli.completion import IssueCompleter
@@ -17,10 +16,10 @@ NAME = "track"
 @Task.command(NAME)
 def track_task(application, issuekey):
     issue = application.jira.issue(issuekey)
-    transition_issue(
-        application, issuekey, "In Progress"
-    )  # TODO: what is the name of the transition target
-    click.echo(f"    Working on {issuekey}: {issue.fields.summary}...")
+    transition_issue(application, issuekey, "In Progress")
+    print_formatted_text(
+        HTML(f"    Working on <b>{issuekey}</b>: {issue.fields.summary}...")
+    )
 
     start_time = time.perf_counter()
     pressed_button = _wait_for_resolution()

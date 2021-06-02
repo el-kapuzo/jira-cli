@@ -31,7 +31,8 @@ class Application:
         self.presenter = IssuePresenter()
         self.running = False
         self.session = prompt_toolkit.PromptSession(
-            "PYT >>> ", completer=self.build_completer()
+            prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
+            completer=self.build_completer(),
         )
 
     def build_completer(self):
