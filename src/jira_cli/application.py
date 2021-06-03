@@ -23,7 +23,7 @@ class Application:
         self.issues = list(
             jira.search_issues(
                 jql,
-                fields=["attachment", "status", "summary", "issuetype"],
+                fields=["attachment", "status", "summary", "issuetype", "parent"],
                 maxResults=False,
             )
         )

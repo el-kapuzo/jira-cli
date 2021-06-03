@@ -1,5 +1,6 @@
 from prompt_toolkit import prompt
 from jira_cli.completion import IssueCompleter
+from jira_cli.queries import all_stories
 from .comments import Comment
 
 NAME = "new"
@@ -15,4 +16,4 @@ def add_comment(application, issuekey):
 
 @Comment.completion_provider(NAME)
 def add_comment_completer(application):
-    return IssueCompleter(application.issues)
+    return IssueCompleter(all_stories(application.issues))

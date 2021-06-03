@@ -1,13 +1,17 @@
 from prompt_toolkit.completion import Completion, Completer
+from jira_cli.queries import get_story_of_subtask
 
 
 class IssueCompleter(Completer):
-    def __init__(self, issues, *args, ignore_statuses=None, **kwargs):
+    def __init__(
+        self, issues, *args, ignore_statuses=None, parent_in_meta=False, **kwargs
+    ):
         self.issues = list(issues)
         if ignore_statuses is None:
             self.ignore_status = set()
         else:
             self.ignore_status = set(ignore_statuses)
+        self.parent_in_meta = parent_in_meta
         super().__init__(*args, **kwargs)
 
     def get_completions(self, document, completion_event):
@@ -17,12 +21,14 @@ class IssueCompleter(Completer):
             issuekey = issue.key
             summary = issue.fields.summary
             issue_status = issue.fields.status.name
+            display_meta = get_story_of_subtask(issue) if self.parent_in_meta else None
             if issue_status not in self.ignore_status:
                 if _is_completion(issuekey, summary, already_typed_text):
                     yield Completion(
                         issuekey,
                         start_position=-len(already_typed_text),
                         display=f"{issuekey}: {summary}",
+                        display_meta=display_meta,
                     )
 
 

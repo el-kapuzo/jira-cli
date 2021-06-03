@@ -6,10 +6,11 @@
 
 
 ## Make it look nicer
-+ [ ] Colorful prompt
-  + [ ] Use `pprompt_toolkit.print_formatted_text`
++ [x] Colorful prompt
+  + [x] Use `pprompt_toolkit.print_formatted_text`
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
-  + [ ] Implement a simple rst -> md converter
+  + [ ] There is a `pygments` lexer for rst (for syntax highlighting)
+  + [ ] Implement a small rst -> md converter
 
 
 ## Refactor: Resource Based commands
@@ -46,7 +47,7 @@
     + [x] delete
 
 ## Autocompletion Features
-+ [ ] Display Meta: Issue-Type (or Parent Story)?
++ [t] Display Meta: Issue-Type (or Parent Story)?
 + [x] For initial commands
 + [x] For arguments to commands
 + [x] Refactor: create utilites to generate completions from a list of issues
