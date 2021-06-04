@@ -1,5 +1,5 @@
-import click
 from prompt_toolkit.completion import FuzzyWordCompleter
+from prompt_toolkit import print_formatted_text, HTML
 from jira_cli.completion import ChainCompleter, IssueCompleter
 
 from .task import Task
@@ -17,7 +17,8 @@ def transition_issue(application, issuekey, *resolution_names):
     if resolution_id:
         jira.transition_issue(issue, resolution_id)
     else:
-        click.echo("[WARN]: Transition not possible", color="red")
+        print_formatted_text(HTML("<ansired><b>[WARN]:</b> Transition not
+            possible</ansired>"))
     return issue
 
 

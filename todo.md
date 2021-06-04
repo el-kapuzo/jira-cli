@@ -8,22 +8,17 @@
 
 ## Completion
 + [x] Alternative contructor for IssueCompleter for _all subtasks_ and _all stories_ from application
-+ [ ] Comment id completer
-+ [ ] Worklog id completer
-+ [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
-+ [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
-+ [ ] Different Handling of PR Review tasks in history
-+ [ ] Ignore Commands in History:
-  + [ ] Comment (add / view)
-  + [ ] Transition
-+ [ ] Options to sort by type
-+ [ ] Make history persistent over sessions?
++ [ ] Rank completion options for subtasks higher, if its parent was recently used
+  + [ ] Implement the possibility to track the last used stories
+    + [ ] Maybe use a kind of Observer-Pattern???
+  + [ ] The _list subtasks, worklog new, track_ commands publish the events
+  + [ ] Unless the the subtask was a _PR review_
+  + [ ] Or the parent was _Timetracking_
 + [ ] Include basic JQL completion engine?
 
 ## House-Keeping
 + [ ] maybe do not use click and colorama
   + [ ] all output is handled by `prompt_toolkit` and `rich`
-  + [ ] startup is done without click (optional)
 
 
 ## Configuration
