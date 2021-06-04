@@ -1,6 +1,5 @@
-from prompt_toolkit import HTML
 from prompt_toolkit.completion import Completion, Completer
-from jira_cli.queries import get_story_of_subtask
+from jira_cli.queries import get_story_of_subtask, all_stories, all_subtasks
 
 
 class IssueCompleter(Completer):
@@ -35,6 +34,16 @@ class IssueCompleter(Completer):
                         display=f"{issuekey}: {summary}",
                         display_meta=display_meta,
                     )
+
+    @classmethod
+    def subtask_completer(cls, application, ignore_statuses=None):
+        issues = all_subtasks(application.issues)
+        return cls(issues, ignore_statuses=ignore_statuses, parent_in_meta=True)
+
+    @classmethod
+    def story_completer(cls, application, ignore_statuses=None):
+        issues = all_stories(application.issues)
+        return cls(issues, ignore_statuses=ignore_statuses)
 
 
 def _is_completion(issuekey, summary: str, already_typed_text: str):

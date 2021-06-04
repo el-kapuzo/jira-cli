@@ -1,5 +1,4 @@
 from prompt_toolkit import prompt
-from jira_cli.queries import all_subtasks
 from jira_cli.completion import IssueCompleter
 
 from .task import Task
@@ -20,7 +19,9 @@ def add_estimate(application, issuekKey, estimate=None):
 
 @Task.completion_provider(NAME)
 def add_task_completion_provider(application):
-    return IssueCompleter(all_subtasks(application.issues))
+    return IssueCompleter.subtask_completer(
+        application, ignore_statuses=["In Progress", "Done"]
+    )
 
 
 def _transform_estimate(estimate):

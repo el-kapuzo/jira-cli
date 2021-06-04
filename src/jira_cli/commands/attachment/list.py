@@ -1,8 +1,5 @@
-import prompt_toolkit
-
-
 from prompt_toolkit import print_formatted_text, HTML
-from jira_cli.queries import all_stories, all_attachments
+from jira_cli.queries import all_attachments
 from jira_cli.completion import IssueCompleter
 from .attachment import Attachment
 
@@ -23,4 +20,4 @@ def list_subtasks(application, issuekey=None):
 
 @Attachment.completion_provider(NAME)
 def completion_provieder_list_stories(application):
-    return IssueCompleter(all_stories(application.issues), ignore_statuses=[])
+    return IssueCompleter.subtask_completer(application)

@@ -20,4 +20,4 @@ def print_comments(application, issuekey):
 
 @Comment.completion_provider(NAME)
 def print_comments_completer(application):
-    return IssueCompleter(application.issues)
+    return IssueCompleter.story_completer(application)

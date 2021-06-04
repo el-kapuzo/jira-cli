@@ -1,4 +1,3 @@
-from jira_cli.queries import all_subtasks
 from jira_cli.completion import IssueCompleter
 from .worklog import Worklog
 
@@ -17,4 +16,4 @@ def list_worklogs(app, issuekey=None):
 
 @Worklog.completion_provider(NAME)
 def list_worklog_completion_provider(app):
-    return IssueCompleter(all_subtasks(app.issues))
+    return IssueCompleter.subtask_completer(app)

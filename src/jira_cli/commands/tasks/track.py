@@ -2,7 +2,6 @@ import time
 
 from prompt_toolkit import prompt, print_formatted_text, HTML
 
-from jira_cli.queries import all_subtasks
 from jira_cli.completion import IssueCompleter
 
 from .task import Task
@@ -52,5 +51,4 @@ def _elapsed_time_to_jira_time(elapsed_time_in_s):
 
 @Task.completion_provider(NAME)
 def track_task_completions(application):
-    issues = all_subtasks(application.issues)
-    return IssueCompleter(issues, ignore_statuses=["Done"], parent_in_meta=True)
+    return IssueCompleter.subtask_completer(application, ignore_statuses=["Done"])

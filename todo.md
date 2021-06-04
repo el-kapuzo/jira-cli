@@ -7,7 +7,7 @@
 
 
 ## Completion
-+ [ ] Alternative contructor for IssueCompleter for _all subtasks_ and _all stories_ from application
++ [x] Alternative contructor for IssueCompleter for _all subtasks_ and _all stories_ from application
 + [ ] Comment id completer
 + [ ] Worklog id completer
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)

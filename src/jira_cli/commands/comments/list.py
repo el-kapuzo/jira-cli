@@ -24,4 +24,4 @@ def print_comment_meta(issue):
 
 @Comment.completion_provider(NAME)
 def print_comments_completer(application):
-    return IssueCompleter(application.issues)
+    return IssueCompleter.story_completer(application)
