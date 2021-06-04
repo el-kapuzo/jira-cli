@@ -1,62 +1,15 @@
 ## Bugs
-+ [x] add estimate to subtask (both on create and on its own) does not work
-  + Possible solution: there might be a `timetracking` sub-object.
-+ [x] issue completer does not work after refactoring
-+ [x] resource.commands without completion do not show up in autocompletion
-
 
 ## Make it look nicer
-+ [x] Colorful prompt
-  + [x] Use `pprompt_toolkit.print_formatted_text`
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
   + [ ] There is a `pygments` lexer for rst (for syntax highlighting)
   + [ ] Implement a small rst -> md converter
 
 
-## Refactor: Resource Based commands
-+ [x] Implement a suitable completion engine
-  + [x] Fuzzy nested completer
-  + [x] Resource can create its completer
-  + [x] Attachment id completer
-  + [ ] Worklog id completer
-  + [ ] Comment id completer
-+ [x] Add possibility to define aliases
-+ [x] Implement the following resources with commands / queries
-  + [x] (Sub)task
-    + [x] list
-    + [x] new
-    + [x] update
-    + [x] track
-    + [x] estimate
-  + [x] comment
-    + [x] new
-    + [x] list comments
-    + [x] print
-  + [x] stories
-    + [x] list all subtasks
-    + [x] list
-    + [x] new
-    + [x] print details
-  + [x] attachment
-    + [x] list
-    + [x] new
-    + [x] download
-  + [x] worklog
-    + [x] new
-    + [x] list
-    + [x] delete
-
-## Autocompletion Features
-+ [t] Display Meta: Issue-Type (or Parent Story)?
-+ [x] For initial commands
-+ [x] For arguments to commands
-+ [x] Refactor: create utilites to generate completions from a list of issues
-+ [x] Autocompletion based on summary (title) of tasks
-  + [x] Implement basic autocompletieon
-  + [x] Make it case insensitve
-  + [x] Add option to ignore tasks based on their status
-  + [x] _smart case_
-+ [x] Fuzzy completion for commands
+## Completion
++ [ ] Alternative contructor for IssueCompleter for _all subtasks_ and _all stories_ from application
++ [ ] Comment id completer
++ [ ] Worklog id completer
 + [ ] Options to sort subtaks by last viewed userstory (via details / subtasks command)
 + [ ] Options to sort subtaks by last worked on userstory (via track / worklog command)
 + [ ] Different Handling of PR Review tasks in history
@@ -65,12 +18,9 @@
   + [ ] Transition
 + [ ] Options to sort by type
 + [ ] Make history persistent over sessions?
-+ [x] Auto-completions for transitions
 + [ ] Include basic JQL completion engine?
 
 ## House-Keeping
-+ [x] Auto-import all commands files to apply decorators
-+ [x] install dependencies
 + [ ] maybe do not use click and colorama
   + [ ] all output is handled by `prompt_toolkit` and `rich`
   + [ ] startup is done without click (optional)
@@ -78,6 +28,5 @@
 
 ## Configuration
 + [ ] Colormaps
-+ [ ] Presenter Options (once presenter are implemented)
 + [ ] Define available Transitions
 + [ ] Define available Story-Types

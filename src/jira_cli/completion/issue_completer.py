@@ -1,3 +1,4 @@
+from prompt_toolkit import HTML
 from prompt_toolkit.completion import Completion, Completer
 from jira_cli.queries import get_story_of_subtask
 
@@ -21,7 +22,11 @@ class IssueCompleter(Completer):
             issuekey = issue.key
             summary = issue.fields.summary
             issue_status = issue.fields.status.name
-            display_meta = get_story_of_subtask(issue) if self.parent_in_meta else None
+            display_meta = (
+                f"{get_story_of_subtask(issue).key}: {' '.join(get_story_of_subtask(issue).fields.summary.split()[:2])}..."
+                if self.parent_in_meta
+                else None
+            )
             if issue_status not in self.ignore_status:
                 if _is_completion(issuekey, summary, already_typed_text):
                     yield Completion(
