@@ -3,7 +3,7 @@
 ## Make it look nicer
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
   + [ ] There is a `pygments` lexer for rst (for syntax highlighting)
-  + [ ] Implement a small rst -> md converter
+  + [ ] Implement a small rst renderer
 
 
 ## Completion
