@@ -1,8 +1,5 @@
 ## Bugs
 
-
-
-
 ## Completion
 + [x] Alternative contructor for IssueCompleter for _all subtasks_ and _all stories_ from application
 + [ ] Rank completion options for subtasks higher, if its parent was recently used
@@ -19,7 +16,7 @@
   + [ ] Implement a small rst renderer
 
 ## Resources
-+ [ ] Story: Mark Done
++ [x] Story: `close`
 + [ ] Config
   + [ ] Update JQL
   + [ ] shortcut for current sprint
