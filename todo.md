@@ -1,7 +1,6 @@
 ## Bugs
 
 ## Completion
-+ [x] Alternative contructor for IssueCompleter for _all subtasks_ and _all stories_ from application
 + [ ] Rank completion options for subtasks higher, if its parent was recently used
   + [ ] Implement the possibility to track the last used stories
     + [ ] Maybe use a kind of Observer-Pattern???
@@ -16,13 +15,11 @@
   + [ ] Implement a small rst renderer
 
 ## Resources
-+ [x] Story: `close`
 + [ ] Config
   + [ ] Update JQL
   + [ ] shortcut for current sprint
   + [ ] shortcut for next sprint?
   + [ ] shortcut for all future sprints
-+ [ ]
 + [ ] Sprint
   + [ ] `show` current sprint (_rich_ can render tables)
   + [ ] `add` a story / bug to the current sprint
