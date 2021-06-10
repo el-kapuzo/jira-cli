@@ -60,7 +60,7 @@ class Application:
         self.issues = list(
             self.jira.search_issues(
                 self.jql,
-                fields=["attachment", "status", "summary", "issuetype"],
+                fields=["attachment", "status", "summary", "issuetype", "parent"],
                 maxResults=False,
             )
         )
