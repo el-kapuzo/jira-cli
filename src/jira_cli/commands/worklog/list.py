@@ -7,7 +7,7 @@ NAME = "list"
 @Worklog.command(NAME)
 def list_worklogs(app, issuekey=None):
     if issuekey is None:
-        print("Not yet implemented")
+        print("Not yet implemented. Please provide an issuekey.")
     else:
         worklogs = app.jira.worklogs(issuekey)
         for worklog in worklogs:
