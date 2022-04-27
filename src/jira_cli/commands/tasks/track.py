@@ -6,7 +6,7 @@ from jira_cli.completion import IssueCompleter
 
 from .task import Task
 from .update import transition_issue
-from .log_time import log_time
+from ..worklog.new import log_time
 
 
 NAME = "track"
