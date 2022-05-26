@@ -17,7 +17,7 @@ def track_task(application, issuekey):
     issue = application.jira.issue(issuekey)
     transition_issue(application, issuekey, "In Progress")
     print_formatted_text(
-        HTML(f"    Working on <b>{issuekey}</b>: {issue.fields.summary}...")
+        HTML(f"    Working on <b>{issuekey}</b>: {issue.fields.summary}..."),
     )
 
     start_time = time.perf_counter()
@@ -35,7 +35,7 @@ def track_task(application, issuekey):
 def _wait_for_resolution():
     pressed_button = None
     print_formatted_text(
-        HTML("Print <i>(P)</i> for pause  or <i>(F)</i> to finish work")
+        HTML("Print <i>(P)</i> for pause  or <i>(F)</i> to finish work"),
     )
     while pressed_button not in ["P", "F"]:
         value = prompt("(P) / (F) > ")

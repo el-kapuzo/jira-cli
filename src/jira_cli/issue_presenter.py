@@ -21,6 +21,6 @@ class IssuePresenter:
                 startColor, endColor = self.color_map.get(issue_type, ("", ""))
         print_formatted_text(
             HTML(
-                f"    {startColor}<b>{issue.key}</b>: {issue.fields.summary}{endColor}"
-            )
+                f"    {startColor}<b>{issue.key}</b>: {issue.fields.summary}{endColor}",
+            ),
         )

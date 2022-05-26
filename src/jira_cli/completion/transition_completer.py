@@ -18,5 +18,6 @@ class TransitionCompleter(completion.Completer):
             for word in self.transitions:
                 if word.lower().startswith(typed_for_transition.lower()):
                     yield completion.Completion(
-                        word, start_position=-len(typed_for_transition)
+                        word,
+                        start_position=-len(typed_for_transition),
                     )

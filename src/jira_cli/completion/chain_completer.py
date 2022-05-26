@@ -13,13 +13,15 @@ class ChainCompleter(completion.Completer):
         stripped_len = len(document.text_before_cursor) - len(text)
         if self.should_yield_from_second(text):
             words = text.split()
-            remaining_text = text[len(words[0]) :].lstrip()
+            remaining_text = text[len(words[0]) :].lstrip()  # noqa E203
             move_cursor = len(text) - len(remaining_text) + stripped_len
             new_document = doc.Document(
-                remaining_text, cursor_position=document.cursor_position - move_cursor
+                remaining_text,
+                cursor_position=document.cursor_position - move_cursor,
             )
             yield from self.second_completer.get_completions(
-                new_document, complete_event
+                new_document,
+                complete_event,
             )
         else:
             yield from self.first_completer.get_completions(document, complete_event)

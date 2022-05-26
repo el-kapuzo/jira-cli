@@ -13,7 +13,8 @@ class JiraCompleter(completion.Completer):
             yield from self._base_command_completions(word_before_cursor)
         else:
             yield from self.completion_providers.get(
-                document_text_list[0], no_completions_provider
+                document_text_list[0],
+                no_completions_provider,
             )()
 
     def _base_command_completions(self, word_before_cursor):
@@ -21,5 +22,6 @@ class JiraCompleter(completion.Completer):
         for command_string in commands:
             if command_string.startswith(word_before_cursor):
                 yield completion.Completion(
-                    command_string, start_position=-len(word_before_cursor)
+                    command_string,
+                    start_position=-len(word_before_cursor),
                 )

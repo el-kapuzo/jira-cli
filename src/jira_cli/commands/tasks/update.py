@@ -18,7 +18,7 @@ def transition_issue(application, issuekey, *resolution_names):
         jira.transition_issue(issue, resolution_id)
     else:
         print_formatted_text(
-            HTML("<ansired><b>[WARN]:</b> Transition not possible</ansired>")
+            HTML("<ansired><b>[WARN]:</b> Transition not possible</ansired>"),
         )
     return issue
 

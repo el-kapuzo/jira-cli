@@ -6,11 +6,11 @@ with open("README.md", "r") as fh:
 requirements = ["prompt_toolkit", "click", "colrama", "jira"]
 
 setuptools.setup(
-    name="jira_cli",  # TODO find good name
-    version="0.0.1a",
+    name="jira_cli",
+    version="0.1.0",
     author="el-kap",
-    author_email="cherrybomb@up2parts.com",
-    python_requires=">=3.6,<3.9",
+    author_email="el.kapuzo@mailbox.com",
+    python_requires=">=3.6",
     description="CL-Commands to interact with jira",
     package_dir={"": "src"},
     packages=setuptools.find_packages("src"),

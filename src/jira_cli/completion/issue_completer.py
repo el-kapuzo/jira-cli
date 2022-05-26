@@ -4,7 +4,12 @@ from jira_cli.queries import get_story_of_subtask, all_stories, all_subtasks
 
 class IssueCompleter(Completer):
     def __init__(
-        self, issues, *args, ignore_statuses=None, parent_in_meta=False, **kwargs
+        self,
+        issues,
+        *args,
+        ignore_statuses=None,
+        parent_in_meta=False,
+        **kwargs,
     ):
         self.issues = list(issues)
         if ignore_statuses is None:
@@ -22,7 +27,7 @@ class IssueCompleter(Completer):
             summary = issue.fields.summary
             issue_status = issue.fields.status.name
             display_meta = (
-                f"{get_story_of_subtask(issue).key}: {' '.join(get_story_of_subtask(issue).fields.summary.split()[:2])}..."
+                f"{get_story_of_subtask(issue).key}: {' '.join(get_story_of_subtask(issue).fields.summary.split()[:2])}..."  # noqa
                 if self.parent_in_meta
                 else None
             )
@@ -49,9 +54,9 @@ class IssueCompleter(Completer):
 def _is_completion(issuekey, summary: str, already_typed_text: str):
     if already_typed_text.islower():
         return (already_typed_text in issuekey) or summary.lower().startswith(
-            already_typed_text.lower()
+            already_typed_text.lower(),
         )
     else:
         return (already_typed_text in issuekey) or summary.startswith(
-            already_typed_text
+            already_typed_text,
         )

@@ -25,7 +25,7 @@ class Application:
                 jql,
                 fields=["attachment", "status", "summary", "issuetype", "parent"],
                 maxResults=False,
-            )
+            ),
         )
         self.resources = {name: cls() for name, cls in self.resources.items()}
         self.presenter = IssuePresenter()
@@ -62,7 +62,7 @@ class Application:
                 self.jql,
                 fields=["attachment", "status", "summary", "issuetype", "parent"],
                 maxResults=False,
-            )
+            ),
         )
         self.session.completer = self.build_completer()
 

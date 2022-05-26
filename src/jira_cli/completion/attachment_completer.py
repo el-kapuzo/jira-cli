@@ -21,5 +21,5 @@ class AttachmentCompleter(Completer):
 def is_completion(attachment, already_typed_text):
     text = already_typed_text.lower()
     return attachment.id.startswith(text) or attachment.filename.lower().startswith(
-        text
+        text,
     )

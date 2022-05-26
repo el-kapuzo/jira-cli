@@ -5,11 +5,12 @@ import pkgutil
 
 def _importModules(*path):
     for module in pkgutil.iter_modules(
-        [os.path.join(os.path.abspath(os.path.dirname(__file__)), *path)]
+        [os.path.join(os.path.abspath(os.path.dirname(__file__)), *path)],
     ):
         if not (module.ispkg):
             importlib.import_module(
-                f".{'.'.join(path)}.{module.name}", package=__name__
+                f".{'.'.join(path)}.{module.name}",
+                package=__name__,
             )
 
 

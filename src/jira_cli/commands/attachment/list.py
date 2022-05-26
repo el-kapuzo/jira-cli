@@ -14,7 +14,7 @@ def list_subtasks(application, issuekey=None):
         issues = [application.jira.issue(issuekey)]
     for att in all_attachments(issues):
         print_formatted_text(
-            HTML(f"    <b>Id: {att.id}</b>; Filename: {att.filename} ")
+            HTML(f"    <b>Id: {att.id}</b>; Filename: {att.filename} "),
         )
 
 

@@ -18,5 +18,6 @@ def close_story(application, issuekey):
 @Story.completion_provider(NAME)
 def close_story_completion_provider(application):
     return IssueCompleter.story_completer(
-        application, ignore_statuses=["To-Do", "Done"]
+        application,
+        ignore_statuses=["To-Do", "Done"],
     )

@@ -9,7 +9,7 @@ class ResourceMixin:
             for name, completion_provider in self.completion_providers.items()
         }
         for name in self.command_handlers.keys():
-            if not name in completer_map:
+            if name not in completer_map:
                 completer_map[name] = DummyCompleter()
         return FuzzyNestedCompleter(completer_map)
 

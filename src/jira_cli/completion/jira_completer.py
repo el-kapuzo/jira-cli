@@ -14,8 +14,9 @@ class JiraCompleter(completion.Completer):
         self.completors = None
         self.command_completer = completion.FuzzyCompleter(
             completion.WordCompleter(
-                list(self.application.commands.keys()), ignore_case=True
-            )
+                list(self.application.commands.keys()),
+                ignore_case=True,
+            ),
         )
         self.sync()
         super().__init__(*args, **kwargs)
