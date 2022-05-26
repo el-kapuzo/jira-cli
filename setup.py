@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-requirements = ["prompt_toolkit", "click", "colrama", "jira", "rich"]
+requirements = ["prompt_toolkit", "click", "colrama", "jira"]
 
 setuptools.setup(
     name="jira_cli",  # TODO find good name
