@@ -13,6 +13,7 @@ class Application:
         "ls": ("story", "list"),
         "t": ("task", "track"),
         "lt": ("task", "list"),
+        "tm": ("task", "move"),
     }
     resources = {}
 

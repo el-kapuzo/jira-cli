@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-requirements = ["prompt_toolkit", "click", "colrama", "jira"]
+requirements = ["prompt_toolkit", "click", "colorama", "jira", "rich", "toml"]
 
 setuptools.setup(
     name="jira_cli",
@@ -13,6 +13,7 @@ setuptools.setup(
     python_requires=">=3.6",
     description="CL-Commands to interact with jira",
     package_dir={"": "src"},
+    install_requires=requirements,
     packages=setuptools.find_packages("src"),
     entry_points="""
         [console_scripts]
