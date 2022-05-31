@@ -12,7 +12,7 @@ def add_estimate(application, issuekKey, estimate=None):
     issue = application.jira.issue(issuekKey)
     if estimate is None:
         estimate = prompt("estimate:  ")
-    fields = {"timetracking": {"orignialEstimate": estimate}}
+    fields = {"timetracking": {"originalEstimate": estimate}}
     issue.update(fields=fields)
     return issuekKey
 
