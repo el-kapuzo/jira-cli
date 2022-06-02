@@ -31,6 +31,9 @@ class Aliases:
     def __getitem__(self, key):
         return self.aliases[key]
 
+    def resolve_alias(self, key):
+        return self.get(key, key).split()
+
 
 @dataclasses.dataclass
 class Config:
