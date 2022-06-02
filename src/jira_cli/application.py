@@ -1,11 +1,10 @@
 import pathlib
-import toml
 import prompt_toolkit
 from prompt_toolkit.shortcuts import clear
-import jira as jira_api
 
-from jira_cli.completion import FuzzyNestedCompleter
+from jira_cli.completion import FuzzyNestedCompleter, DummyCompleter
 from jira_cli.issue_presenter import IssuePresenter
+from .config import Config
 
 
 class Application:
@@ -17,23 +16,17 @@ class Application:
     }
     resources = {}
 
-    def __init__(self, jira, jql):
-        self.jira = jira
-        self.jql = jql
-        # TODO: use a dict?
-        self.issues = list(
-            jira.search_issues(
-                jql,
-                fields=["attachment", "status", "summary", "issuetype", "parent"],
-                maxResults=False,
-            ),
-        )
+    def __init__(self, config: Config):
+        self.config = config
+        self.jira = config.server.connect()
+        self.jql = config.settings.jql
+        self.issues = []
         self.resources = {name: cls() for name, cls in self.resources.items()}
         self.presenter = IssuePresenter()
         self.running = False
         self.session = prompt_toolkit.PromptSession(
             prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
-            completer=self.build_completer(),
+            completer=DummyCompleter(),
         )
 
     def build_completer(self):
@@ -87,6 +80,7 @@ class Application:
             print(e)
 
     def run(self):
+        self.sync()
         self.running = True
         while self.running:
             inputs = self.session.prompt().split()
@@ -100,16 +94,6 @@ class Application:
             self.dispatch_command(command, *args)
 
     @classmethod
-    def buildFromSettings(cls, settings):
-        serverSettings = settings["server"]
-        jira = jira_api.JIRA(
-            server=serverSettings["server"],
-            basic_auth=(serverSettings["user"], serverSettings["api_token"]),
-        )
-        return cls(jira, settings["settings"]["jql"])
-
-    @classmethod
     def buildFromTomlFilePath(cls, tomlFilePath=None):
         path = tomlFilePath or pathlib.Path.home() / "jira-cli" / "jira.config"
-        with open(path, "r") as f:
-            return cls.buildFromSettings(toml.loads(f.read()))
+        return cls(Config.fromFilePath(path))
