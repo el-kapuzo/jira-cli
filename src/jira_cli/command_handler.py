@@ -32,13 +32,13 @@ class JiraCommands:
         }
 
     def dispatch_command(self, command, *args):
-        command, *alias_args = self.resolve_alias(command)
+        command, *alias_args = self.aliases.resolve_alias(command)
         handler = self.resources.get(command, None)
         if handler:
             handler.dispatch_command(*alias_args, *args)
 
     def resolve_alias(self, command):
-        return self.aliases.get(command, (command,))
+        return self.aliases.resolve_alias(command)
 
 
 class ApplicationCommands:

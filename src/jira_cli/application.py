@@ -1,8 +1,9 @@
 import pathlib
 import prompt_toolkit
+import prompt_toolkit.completion
 from prompt_toolkit.shortcuts import clear
 
-from jira_cli.completion import FuzzyNestedCompleter, DummyCompleter
+from jira_cli.completion import FuzzyNestedCompleter
 from jira_cli.issue_presenter import IssuePresenter
 from .config import Config
 
@@ -26,7 +27,7 @@ class Application:
         self.running = False
         self.session = prompt_toolkit.PromptSession(
             prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
-            completer=DummyCompleter(),
+            completer=prompt_toolkit.completion.DummyCompleter(),
         )
 
     def build_completer(self):
