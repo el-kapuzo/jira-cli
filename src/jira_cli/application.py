@@ -1,10 +1,11 @@
 import pathlib
+
 import prompt_toolkit
 import prompt_toolkit.completion
-from prompt_toolkit.shortcuts import clear
 
 from jira_cli.completion import FuzzyNestedCompleter
 from jira_cli.issue_presenter import IssuePresenter
+from .command_handler import buildCommandHandler
 from .config import Config
 
 
@@ -25,6 +26,7 @@ class Application:
         self.resources = {name: cls() for name, cls in self.resources.items()}
         self.presenter = IssuePresenter()
         self.running = False
+        self.command_handler = buildCommandHandler(self)
         self.session = prompt_toolkit.PromptSession(
             prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
             completer=prompt_toolkit.completion.DummyCompleter(),
@@ -62,21 +64,8 @@ class Application:
         self.session.completer = self.build_completer()
 
     def dispatch_command(self, command_string, *args):
-        resolved_command = self.aliases.get(command_string)
-        if resolved_command:
-            command_string = resolved_command[0]
-            args = resolved_command[1:] + args
-        if command_string == "exit":
-            self.running = False
-            return
-        if command_string == "sync":
-            self.sync()
-            return
-        if command_string == "clear":
-            clear()
-            return
         try:
-            self.resources[command_string].dispatch_command(self, *args)
+            self.command_handler.dispatch_command(command_string, *args)
         except Exception as e:
             print(e)
 
