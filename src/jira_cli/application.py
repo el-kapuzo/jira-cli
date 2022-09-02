@@ -5,7 +5,6 @@ import prompt_toolkit.completion
 
 import jira_cli.jira_issues.jiraTasks
 from jira_cli.completion import FuzzyNestedCompleter
-from jira_cli.issue_presenter import IssuePresenter
 from .command_handler import buildCommandHandler
 from .config import Config
 
@@ -28,7 +27,6 @@ class Application:
         self.resources = {
             name: cls(self.jiraTasks) for name, cls in self.resources.items()
         }
-        self.presenter = IssuePresenter()
         self.running = False
         self.command_handler = buildCommandHandler(self)
         self.session = prompt_toolkit.PromptSession(

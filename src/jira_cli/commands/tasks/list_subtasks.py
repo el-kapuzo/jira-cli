@@ -1,3 +1,5 @@
+import jira_cli.issue_presenter
+import jira_cli.jira_issues.jiraTask
 from jira_cli.queries import subtasks_of_issue, all_subtasks
 from jira_cli.completion import IssueCompleter
 from .task import Task
@@ -15,16 +17,18 @@ def list_subtasks(application, issuekey=None):
 
 def _list_all_tasks(application):
     issues = application.issues
-    presenter = application.presenter
     for issue in all_subtasks(issues):
-        presenter.print_issue(issue)
+        jira_cli.issue_presenter.print_issue(
+            jira_cli.jira_issues.jiraTask.JiraTask(application.jira, issue),
+        )
 
 
 def _list_subtasks(application, issuekey):
     story = application.jira.issue(issuekey)
-    presenter = application.presenter
     for issue in subtasks_of_issue(story):
-        presenter.print_issue(issue)
+        jira_cli.issue_presenter.print_issue(
+            jira_cli.jira_issues.jiraTask.JiraTask(application.jira, issue),
+        )
     return issuekey
 
 

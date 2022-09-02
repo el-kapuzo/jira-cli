@@ -18,16 +18,28 @@ class JiraTask:
         return self.jira.issue(self.issue.key).fields.description
 
     @property
-    def issue_key(self):
+    def key(self):
         return self.issue.key
 
     @property
+    def summary(self):
+        return self.issue.fields.summary
+
+    @property
+    def status(self):
+        return self.issue.fields.status.name
+
+    @property
+    def issue_type(self):
+        return self.issue.fields.issuetype
+
+    @property
     def is_story(self):
-        return str(self.issue.fields.issuetype) not in self.NOT_A_STORY_TYPE
+        return str(self.issue_type) not in self.NOT_A_STORY_TYPE
 
     @property
     def is_subtask(self):
-        return str(self.issue.fields.issuetype) in self.SUBTASK_TYPES
+        return str(self.issue_type) in self.SUBTASK_TYPES
 
     def associated_story(self):
         if self.is_story:

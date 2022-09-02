@@ -1,10 +1,9 @@
-from jira_cli.queries import all_stories
+import jira_cli.issue_presenter
 
 from .story import Story
 
 
 @Story.command("list")
-def list_stories(application):
-    presenter = application.presenter
-    for issue in all_stories(application.issues):
-        presenter.print_issue(issue)
+def list_stories(self: Story):
+    for story in self.jiraTasks.iter_stories():
+        jira_cli.issue_presenter.print_issue(story)

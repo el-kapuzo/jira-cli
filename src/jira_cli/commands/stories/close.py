@@ -7,12 +7,8 @@ NAME = "close"
 
 
 @Story.command(NAME)
-def close_story(application, issuekey):
-    jira = application.jira
-    issue = jira.issue(issuekey)
-    transition_name_to_id = {t["name"]: t["id"] for t in jira.transitions(issue)}
-    resolution_id = transition_name_to_id.get("Done")
-    jira.transition_issue(issue, resolution_id)
+def close_story(self: Story, issuekey):
+    self.jiraTasks.task_for(issuekey).close()
 
 
 @Story.completion_provider(NAME)
