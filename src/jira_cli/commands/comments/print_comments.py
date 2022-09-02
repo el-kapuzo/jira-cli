@@ -7,9 +7,8 @@ NAME = "show"
 
 
 @Comment.command(NAME)
-def print_comments(application, issuekey):
-    jira = application.jira
-    comments = jira.comments(issuekey)
+def print_comments(self: Comment, issuekey):
+    comments = self.jiraTasks.task_for(issuekey).comments
     for comment in comments:
         author = comment.author.displayName
         body = comment.body

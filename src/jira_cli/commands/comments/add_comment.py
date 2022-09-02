@@ -6,9 +6,9 @@ NAME = "new"
 
 
 @Comment.command(NAME)
-def add_comment(application, issuekey):
+def add_comment(self: Comment, issuekey):
     body = prompt("#   ", multiline=True)
-    application.jira.add_comment(issuekey, body)
+    self.jiraTasks.task_for(issuekey).add_comment(body)
     return issuekey
 
 

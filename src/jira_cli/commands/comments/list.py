@@ -1,3 +1,5 @@
+import itertools
+
 from jira_cli.completion import IssueCompleter
 from .comments import Comment
 
@@ -6,16 +8,19 @@ NAME = "list"
 
 
 @Comment.command(NAME)
-def list_comments(app, issuekey=None):
-    if issuekey is None:
-        for issue in app.issues:
-            print_comment_meta(issue)
+def list_comments(self: Comment, issuekey=None):
+    if issuekey:
+        comments = self.jiraTasks.task_for(issuekey).comments
     else:
-        print_comment_meta(app.jira.comments(issuekey))
+        comments = itertools.chain(
+            *(task.comments for task in self.jiraTasks.iter_stories()),
+        )
+    print_comment_meta(comments)
+    return issuekey
 
 
-def print_comment_meta(issue):
-    for comment in issue.fields.comment.comments:
+def print_comment_meta(comments):
+    for comment in comments:
         id = comment.id
         author = comment.author.displayName
         time = comment.created

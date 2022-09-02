@@ -55,3 +55,11 @@ class JiraTask:
     def close(self):
         resolution_id = self.transition_map.get("Done")
         self.jira.transition_issue(self.issue, resolution_id)
+
+    @functools.cached_property
+    def comments(self):
+        # TODO: (maybe?) wrap jira comment in JiraComment class
+        return self.jira.comments(self.key)
+
+    def add_comment(self, body):
+        self.jira.add_comment(self.key, body)
