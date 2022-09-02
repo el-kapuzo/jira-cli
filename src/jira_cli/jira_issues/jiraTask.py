@@ -52,9 +52,36 @@ class JiraTask:
         except Exception:
             yield from ()
 
-    def close(self):
-        resolution_id = self.transition_map.get("Done")
+    def estimate(self, estimation):
+        fields = {"timetracking": {"originalEstimate": estimation}}
+        self.issue.update(fields=fields)
+
+    def add_task(self, summary, estimate):
+        assert self.is_story  # noqa: S101
+        fields = {
+            "project": {"key": "PYT"},
+            "summary": summary,
+            "issuetype": "Sub-task",
+            "timetracking": {"originalEstimate": estimate},
+            "parent": {"key": self.key},
+        }
+        return self.jira.create_issue(fields=fields)
+
+    def add_worklog(self, time):
+        try:
+            self.jira.add_worklog(self.issue, timeSpent=time, reduceBy=time)
+        except Exception:
+            self.jira.add_worklog(self.issue, timeSpent=time)
+
+    def change_lane(self, new_lane):
+        resolution_id = self.transition_map[new_lane]
         self.jira.transition_issue(self.issue, resolution_id)
+
+    def close(self):
+        self.change_lane("Done")
+
+    def start_working(self):
+        self.change_lane("In Progress")
 
     @functools.cached_property
     def comments(self):

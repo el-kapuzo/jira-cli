@@ -23,14 +23,3 @@ def add_task_completion_provider(application):
         application,
         ignore_statuses=["In Progress", "Done"],
     )
-
-
-def _transform_estimate(estimate):
-    time, unit = float(estimate[:-1]), estimate[-1]
-    if unit == "m":
-        time = time * 60
-    elif unit == "h":
-        time = time * 60 * 60
-    else:
-        raise ValueError("Unknown time unit")
-    return int(time)

@@ -1,23 +1,19 @@
 import time
 
-from prompt_toolkit import prompt, print_formatted_text, HTML
+from prompt_toolkit import HTML, print_formatted_text, prompt
 
 from jira_cli.completion import IssueCompleter
-
 from .task import Task
-from .update import transition_issue
-from ..worklog.new import log_time
-
 
 NAME = "track"
 
 
 @Task.command(NAME)
-def track_task(application, issuekey):
-    issue = application.jira.issue(issuekey)
-    transition_issue(application, issuekey, "In Progress")
+def track_task(self: Task, issuekey):
+    jira_task = self.jiraTasks.task_for(issuekey)
+    jira_task.start_working()
     print_formatted_text(
-        HTML(f"    Working on <b>{issuekey}</b>: {issue.fields.summary}..."),
+        HTML(f"    Working on <b>{jira_task.key}</b>: {jira_task.summary}..."),
     )
 
     start_time = time.perf_counter()
@@ -26,9 +22,9 @@ def track_task(application, issuekey):
 
     elapsed_time = stop_time - start_time
     worklog_time = _elapsed_time_to_jira_time(elapsed_time)
-    log_time(application, issuekey, worklog_time)
+    jira_task.add_worklog(worklog_time)
     if pressed_button == "F":
-        transition_issue(application, issuekey, "Done")
+        jira_task.close()
     return issuekey
 
 

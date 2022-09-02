@@ -8,19 +8,12 @@ NAME = "new"
 
 
 @Task.command(NAME)
-def add_subtask(application, storyKey):
+def add_subtask(self: Task, storyKey):
     summary = prompt("title:  ")
-    estimate = prompt("estimate:  ")
-    if estimate == "" or estimate is None:
-        estimate = "0m"
-    fields = {
-        "project": {"key": "PYT"},
-        "summary": summary,
-        "issuetype": "Sub-task",
-        "timetracking": {"originalEstimate": estimate},
-        "parent": {"key": storyKey},
-    }
-    application.jira.create_issue(fields=fields)
+    estimation = prompt("estimate:  ")
+    if estimation == "" or estimation is None:
+        estimation = "0m"
+    self.jiraTasks.add_sub_task(storyKey, summary, estimation)
 
 
 @Task.completion_provider(NAME)
