@@ -25,9 +25,11 @@
   + [ ] `add` a story / bug to the current sprint
 
 ## House-Keeping
-+ [ ] maybe do not use click and colorama
-  + [ ] all output is handled by `prompt_toolkit` and `rich`
-+ [ ] there is a pager implemented on top of `prompt_toolkit`
++ [ ] Refactor to new JiraTasks class
+  + [ ] refactor _worklog_ commands
+  + [ ] refactor _attachment_ commands
+  + [ ] refactor _completion engine_
+  + [ ] clean up _application_ class
 
 
 ## Configuration
