@@ -37,7 +37,7 @@ class JiraTask:
     def iter_subtasks(self):
         try:
             yield from map(lambda x: JiraTask(self.jira, x), self.issue.subtasks)
-        except:
+        except Exception:
             yield from ()
 
     def close(self):

@@ -26,7 +26,8 @@ class JiraCommands:
     def __init__(self, application):
         self.aliases = application.config.aliases
         self.resources = {
-            name: builder() for name, builder in self.resource_builder.items()
+            name: builder(application.jiraTasks)
+            for name, builder in self.resource_builder.items()
         }
         self.application = application
 
@@ -41,7 +42,7 @@ class ApplicationCommands:
     def __init__(self, application):
         self.application = application
 
-    def dispatch_command(self, command):
+    def dispatch_command(self, command, *_):
         application = self.application
         if command == "exit":
             application.running = False

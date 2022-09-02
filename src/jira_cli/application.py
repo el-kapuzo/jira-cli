@@ -3,6 +3,7 @@ import pathlib
 import prompt_toolkit
 import prompt_toolkit.completion
 
+import jira_cli.jira_issues.jiraTasks
 from jira_cli.completion import FuzzyNestedCompleter
 from jira_cli.issue_presenter import IssuePresenter
 from .command_handler import buildCommandHandler
@@ -22,8 +23,11 @@ class Application:
         self.config = config
         self.jira = config.server.connect()
         self.jql = config.settings.jql
+        self.jiraTasks = jira_cli.jira_issues.jiraTasks.JiraTasks.fromConfig(config)
         self.issues = []
-        self.resources = {name: cls() for name, cls in self.resources.items()}
+        self.resources = {
+            name: cls(self.jiraTasks) for name, cls in self.resources.items()
+        }
         self.presenter = IssuePresenter()
         self.running = False
         self.command_handler = buildCommandHandler(self)

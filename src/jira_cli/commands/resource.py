@@ -2,7 +2,10 @@ from prompt_toolkit.completion import DummyCompleter
 from jira_cli.completion import FuzzyNestedCompleter
 
 
-class ResourceMixin:
+class Resource:
+    def __init__(self, jiraTasks):
+        self.jiraTasks = jiraTasks
+
     @property
     def completion_providers(self):
         return getattr(self.__class__, "_completion_providers", dict())
@@ -27,9 +30,9 @@ class ResourceMixin:
     @classmethod
     def command(cls, name):
         def decorator(fun):
-            if not hasattr(cls, "command_handlers"):
-                cls.command_handlers = {}
-            cls.command_handlers[name] = fun
+            if not hasattr(cls, "_command_handlers"):
+                cls._command_handlers = {}
+            cls._command_handlers[name] = fun
             return fun
 
         return decorator
@@ -37,9 +40,9 @@ class ResourceMixin:
     @classmethod
     def completion_provider(cls, name):
         def decorator(fun):
-            if not hasattr(cls, "completion_providers"):
-                cls.completion_providers = {}
-            cls.completion_providers[name] = fun
+            if not hasattr(cls, "_completion_providers"):
+                cls._completion_providers = {}
+            cls._completion_providers[name] = fun
             return fun
 
         return decorator

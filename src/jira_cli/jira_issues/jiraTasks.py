@@ -1,5 +1,3 @@
-import functools
-
 import jira_cli.config
 import jira_cli.jira_issues.jiraTask
 

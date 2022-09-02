@@ -9,8 +9,9 @@ NAME = "show"
 
 
 @Story.command(NAME)
-def print_details(application, issuekey):
-    click.echo_via_pager(application.jira.issue(issuekey).fields.description)
+def print_details(self: Story, issuekey):
+    jiraTask = self.jiraTasks.task_for(issuekey)
+    click.echo_via_pager(jiraTask.descriptions)
     return issuekey
 
 

@@ -1,8 +1,8 @@
-from typing import Dict
 import dataclasses
+from typing import Dict
 
-import toml
 import jira as jira_api
+import toml
 
 
 @dataclasses.dataclass
@@ -10,9 +10,15 @@ class Server:
     url: str
     user: str
     token: str
+    _connection = None
 
     def connect(self):
-        return jira_api.JIRA(server=self.url, basic_auth=(self.user, self.token))
+        if self._connection is None:
+            self._connection = jira_api.JIRA(
+                server=self.url,
+                basic_auth=(self.user, self.token),
+            )
+        return self._connection
 
 
 @dataclasses.dataclass
