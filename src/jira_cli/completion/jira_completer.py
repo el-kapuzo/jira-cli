@@ -9,8 +9,7 @@ def get_dummy_provider(*args, **kwargs):
 class JiraCompleter(completion.Completer):
     completion_factories = collections.defaultdict(default_factor=get_dummy_provider)
 
-    def __init__(self, application, *args, **kwargs):
-        self.application = application
+    def __init__(self, jira_tasks, *args, **kwargs):
         self.completors = None
         self.command_completer = completion.FuzzyCompleter(
             completion.WordCompleter(

@@ -1,17 +1,16 @@
 from prompt_toolkit.completion import Completion, Completer
-from jira_cli.queries import get_story_of_subtask, all_stories, all_subtasks
 
 
 class IssueCompleter(Completer):
     def __init__(
         self,
-        issues,
+        jiraTasks,
         *args,
         ignore_statuses=None,
         parent_in_meta=False,
         **kwargs,
     ):
-        self.issues = list(issues)
+        self.jira_tasks = list(jiraTasks)
         if ignore_statuses is None:
             self.ignore_status = set()
         else:
@@ -21,13 +20,12 @@ class IssueCompleter(Completer):
 
     def get_completions(self, document, completion_event):
         already_typed_text = document.text_before_cursor
-        issues = self.issues
-        for issue in issues:
+        for issue in self._iter_tasks:
             issuekey = issue.key
-            summary = issue.fields.summary
-            issue_status = issue.fields.status.name
+            summary = issue.summary
+            issue_status = issue.status
             display_meta = (
-                f"{get_story_of_subtask(issue).key}: {' '.join(get_story_of_subtask(issue).fields.summary.split()[:2])}..."  # noqa
+                f"{task.parent.key}: {' '.join(task.parent.summary.split()[:2])}..."  # noqa
                 if self.parent_in_meta
                 else None
             )
@@ -40,15 +38,30 @@ class IssueCompleter(Completer):
                         display_meta=display_meta,
                     )
 
-    @classmethod
-    def subtask_completer(cls, application, ignore_statuses=None):
-        issues = all_subtasks(application.issues)
-        return cls(issues, ignore_statuses=ignore_statuses, parent_in_meta=True)
+    def _iter_tasks(self):
+        yield from self.jira_tasks
 
     @classmethod
-    def story_completer(cls, application, ignore_statuses=None):
-        issues = all_stories(application.issues)
-        return cls(issues, ignore_statuses=ignore_statuses)
+    def subtask_completer(cls, jira_tasks, ignore_statuses=None):
+        return SubtaskCompleter(
+            jira_tasks,
+            ignore_statuses=ignore_statuses,
+            parent_in_meta=True,
+        )
+
+    @classmethod
+    def story_completer(cls, jira_tasks, ignore_statuses=None):
+        return StoryCompleter(jira_tasks, ignore_statuses=ignore_statuses)
+
+
+class StoryCompleter(IssueCompleter):
+    def _iter_tasks(self):
+        yield from self.jira_tasks.iter_stories()
+
+
+class SubtaskCompleter(IssueCompleter):
+    def _iter_tasks(self):
+        yield from self.jira_tasks.iter_subtasks()
 
 
 def _is_completion(issuekey, summary: str, already_typed_text: str):

@@ -26,10 +26,13 @@ class JiraTasks:
         self._tasks[new_issue.key] = JiraTask(self.jira, new_issue)
 
     def iter_subtasks(self):
-        yield from filter(lambda x: x.is_subtask, self._tasks.values())
+        yield from filter(lambda x: x.is_subtask, self)
 
     def iter_stories(self):
-        yield from filter(lambda x: x.is_story, self._tasks.values())
+        yield from filter(lambda x: x.is_story, self)
+
+    def __iter__(self):
+        yield from self._tasks.values()
 
     @classmethod
     def fromConfig(cls, config: jira_cli.config.Config):
