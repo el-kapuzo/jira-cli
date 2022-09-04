@@ -8,8 +8,8 @@ NAME = "new"
 
 
 @Attachment.command(NAME)
-def add_attachment(app, issuekey, path):
-    app.jira.add_attachment(issuekey, path)
+def add_attachment(self: Attachment, issuekey, path):
+    self.jiraTasks.task_for(issuekey).add_attachment(path)
 
 
 @Attachment.completion_provider(NAME)

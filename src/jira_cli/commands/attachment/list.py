@@ -1,5 +1,4 @@
 from prompt_toolkit import print_formatted_text, HTML
-from jira_cli.queries import all_attachments
 from jira_cli.completion import IssueCompleter
 from .attachment import Attachment
 
@@ -7,12 +6,9 @@ NAME = "list"
 
 
 @Attachment.command(NAME)
-def list_subtasks(application, issuekey=None):
-    if issuekey is None:
-        issues = application.issues
-    else:
-        issues = [application.jira.issue(issuekey)]
-    for att in all_attachments(issues):
+def list_subtasks(self: Attachment, issuekey=None):
+    attachments = self.jiraTasks.task_for(issuekey).attachments
+    for att in attachments:
         print_formatted_text(
             HTML(f"    <b>Id: {att.id}</b>; Filename: {att.filename} "),
         )

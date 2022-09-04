@@ -27,7 +27,7 @@
 ## House-Keeping
 + [ ] Refactor to new JiraTasks class
   + [x] refactor _worklog_ commands
-  + [ ] refactor _attachment_ commands
+  + [x] refactor _attachment_ commands
   + [ ] refactor _completion engine_
   + [ ] clean up _application_ class
 

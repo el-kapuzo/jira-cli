@@ -13,8 +13,13 @@ NAME = "download"
 
 
 @Attachment.command(NAME)
-def download_attachment(application, attachment_id, path=None):
-    attachment = application.jira.attachment(attachment_id)
+def download_attachment(self: Attachment, attachment_id, path=None):
+    # TODO: how to best get the attachment?
+    attachment = self.jiraTasks.jira.attachment(attachment_id)
+    path = path or pathlib.Path.cwd()
+    if not path.is_dir():
+        print("You need to provide a directory")
+        return
     target_path = pathlib.Path.cwd() / attachment.filename
     with open(target_path, "wb+") as f:
         for chunk in attachment.iter_content():

@@ -41,6 +41,13 @@ class JiraTask:
     def is_subtask(self):
         return str(self.issue_type) in self.SUBTASK_TYPES
 
+    @property
+    def attachments(self):
+        return self.issue.fields.attachments
+
+    def add_attachment(self, path):
+        self.jira.add_attachment(self.key, path)
+
     def associated_story(self):
         if self.is_story:
             return self
