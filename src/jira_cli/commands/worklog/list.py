@@ -5,12 +5,11 @@ NAME = "list"
 
 
 @Worklog.command(NAME)
-def list_worklogs(app, issuekey=None):
+def list_worklogs(self: Worklog, issuekey=None):
     if issuekey is None:
         print("Not yet implemented. Please provide an issuekey.")
     else:
-        worklogs = app.jira.worklogs(issuekey)
-        for worklog in worklogs:
+        for worklog in self.jiraTasks.task_for(issuekey).iter_worklogs():
             print(f"    Id: {worklog.id}, {worklog.author}, {worklog.timeSpent}")
 
 

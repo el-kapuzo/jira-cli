@@ -73,6 +73,11 @@ class JiraTask:
         except Exception:
             self.jira.add_worklog(self.issue, timeSpent=time)
 
+    def iter_worklogs(self):
+        # TODO: wrap worklogs with own calss
+        # TODO: cache result?
+        yield from self.jira.worklogs(self.key)
+
     def change_lane(self, new_lane):
         resolution_id = self.transition_map[new_lane]
         self.jira.transition_issue(self.issue, resolution_id)

@@ -7,8 +7,9 @@ NAME = "delete"
 
 
 @Worklog.command(NAME)
-def log_time(application, issuekey, worklog_id):
-    jira = application.jira
+def log_time(self: Worklog, issuekey, worklog_id):
+    # TODO: this is kind of ugly... but to tidy up we need to wrap JiraWorklogs
+    jira = self.jiraTasks.jira
     jira.worklog(issuekey, worklog_id).delete()
 
 

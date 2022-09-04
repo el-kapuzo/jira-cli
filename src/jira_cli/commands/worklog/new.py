@@ -7,14 +7,9 @@ NAME = "new"
 
 
 @Worklog.command(NAME)
-def log_time(application, issuekey, time):
-    jira = application.jira
-    issue = jira.issue(issuekey)
-    try:
-        jira.add_worklog(issue, timeSpent=time, reduceBy=time)
-    except Exception:
-        jira.add_worklog(issue, timeSpent=time)
-    return issue
+def log_time(self: Worklog, issuekey, time):
+    task = self.jiraTasks.task_for(issuekey)
+    task.add_worklog(time)
 
 
 @Worklog.completion_provider(NAME)

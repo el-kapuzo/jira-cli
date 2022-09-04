@@ -5,8 +5,8 @@
   + [ ] Implement the possibility to track the last used stories
     + [ ] Maybe use a kind of Observer-Pattern???
   + [ ] The _list subtasks, worklog new, track_ commands publish the events
-  + [ ] Unless the the subtask was a _PR review_
-  + [ ] Or the parent was _Timetracking_
+    + [ ] Unless the the subtask was a _PR review_
+    + [ ] Or the parent was _Timetracking_
 + [ ] Include basic JQL completion engine?
 
 ## Make it look nicer
@@ -26,7 +26,7 @@
 
 ## House-Keeping
 + [ ] Refactor to new JiraTasks class
-  + [ ] refactor _worklog_ commands
+  + [x] refactor _worklog_ commands
   + [ ] refactor _attachment_ commands
   + [ ] refactor _completion engine_
   + [ ] clean up _application_ class
