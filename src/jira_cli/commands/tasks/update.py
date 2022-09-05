@@ -22,6 +22,6 @@ def transition_issue(self: Task, issuekey, *resolution_names):
 @Task.completion_provider(NAME)
 def transitions_completions(application):
     return ChainCompleter(
-        IssueCompleter.subtask_completer(application),
+        IssueCompleter.subtask_completer(application.jiraTasks),
         FuzzyWordCompleter(["To-Do", "In Progress", "Done"]),
     )

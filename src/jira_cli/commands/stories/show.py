@@ -1,9 +1,7 @@
 import click
 
 from jira_cli.completion import IssueCompleter
-from jira_cli.queries import all_stories
 from .story import Story
-
 
 NAME = "show"
 
@@ -17,5 +15,4 @@ def print_details(self: Story, issuekey):
 
 @Story.completion_provider(NAME)
 def details_completion_provider(application):
-    issues = all_stories(application.issues)
-    return IssueCompleter(issues)
+    return IssueCompleter.story_completer(application.jiraTasks)

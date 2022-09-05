@@ -16,7 +16,14 @@ class JiraTasks:
             issue.key: JiraTask(self.jira, issue)
             for issue in self.jira.search_issues(
                 self.jql,
-                fields=["attachment", "status", "summary", "issuetype", "parent"],
+                fields=[
+                    "attachment",
+                    "status",
+                    "summary",
+                    "issuetype",
+                    "parent",
+                    "subtasks",
+                ],
                 maxResults=False,
             )
         }

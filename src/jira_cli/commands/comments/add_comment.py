@@ -14,4 +14,4 @@ def add_comment(self: Comment, issuekey):
 
 @Comment.completion_provider(NAME)
 def add_comment_completer(application):
-    return IssueCompleter.story_completer(application)
+    return IssueCompleter.story_completer(application.jiraTasks)

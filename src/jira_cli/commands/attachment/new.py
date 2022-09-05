@@ -14,6 +14,6 @@ def add_attachment(self: Attachment, issuekey, path):
 
 @Attachment.completion_provider(NAME)
 def new_attachment_completion_provider(app):
-    issue_completer = IssueCompleter.story_completer(app)
+    issue_completer = IssueCompleter.story_completer(app.jiraTasks)
     path_completer = PathCompleter()
     return ChainCompleter(issue_completer, path_completer)

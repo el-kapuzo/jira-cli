@@ -20,6 +20,6 @@ def add_estimate(application, issuekKey, estimate=None):
 @Task.completion_provider(NAME)
 def add_task_completion_provider(application):
     return IssueCompleter.subtask_completer(
-        application,
+        application.jiraTasks,
         ignore_statuses=["In Progress", "Done"],
     )

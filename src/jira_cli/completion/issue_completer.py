@@ -10,7 +10,7 @@ class IssueCompleter(Completer):
         parent_in_meta=False,
         **kwargs,
     ):
-        self.jira_tasks = list(jiraTasks)
+        self.jira_tasks = jiraTasks
         if ignore_statuses is None:
             self.ignore_status = set()
         else:
@@ -20,7 +20,7 @@ class IssueCompleter(Completer):
 
     def get_completions(self, document, completion_event):
         already_typed_text = document.text_before_cursor
-        for issue in self._iter_tasks:
+        for issue in self._iter_tasks():
             issuekey = issue.key
             summary = issue.summary
             issue_status = issue.status

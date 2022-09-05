@@ -29,4 +29,4 @@ def print_comment_meta(comments):
 
 @Comment.completion_provider(NAME)
 def print_comments_completer(application):
-    return IssueCompleter.story_completer(application)
+    return IssueCompleter.story_completer(application.jiraTasks)

@@ -18,4 +18,4 @@ def list_subtasks(self: Task, issuekey=None):
 
 @Task.completion_provider(NAME)
 def add_task_completion_provider(application):
-    return IssueCompleter.story_completer(application)
+    return IssueCompleter.story_completer(application.jiraTasks)

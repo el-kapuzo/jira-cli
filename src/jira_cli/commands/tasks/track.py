@@ -47,4 +47,7 @@ def _elapsed_time_to_jira_time(elapsed_time_in_s):
 
 @Task.completion_provider(NAME)
 def track_task_completions(application):
-    return IssueCompleter.subtask_completer(application, ignore_statuses=["Done"])
+    return IssueCompleter.subtask_completer(
+        application.jiraTasks,
+        ignore_statuses=["Done"],
+    )

@@ -14,6 +14,6 @@ def close_story(self: Story, issuekey):
 @Story.completion_provider(NAME)
 def close_story_completion_provider(application):
     return IssueCompleter.story_completer(
-        application,
+        application.jiraTasks,
         ignore_statuses=["To-Do", "Done"],
     )

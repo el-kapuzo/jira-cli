@@ -16,4 +16,4 @@ def list_subtasks(self: Attachment, issuekey=None):
 
 @Attachment.completion_provider(NAME)
 def completion_provieder_list_stories(application):
-    return IssueCompleter.subtask_completer(application)
+    return IssueCompleter.subtask_completer(application.jiraTasks)

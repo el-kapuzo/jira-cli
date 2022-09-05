@@ -18,7 +18,7 @@ def add_subtask(self: Task, storyKey):
 
 @Task.completion_provider(NAME)
 def add_task_completion_provider(application):
-    return IssueCompleter.story_completer(application)
+    return IssueCompleter.story_completer(application.jiraTasks)
 
 
 def _transform_estimate(estimate):

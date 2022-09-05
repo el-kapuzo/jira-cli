@@ -15,4 +15,4 @@ def list_worklogs(self: Worklog, issuekey=None):
 
 @Worklog.completion_provider(NAME)
 def list_worklog_completion_provider(app):
-    return IssueCompleter.subtask_completer(app)
+    return IssueCompleter.subtask_completer(app.jiraTasks)
