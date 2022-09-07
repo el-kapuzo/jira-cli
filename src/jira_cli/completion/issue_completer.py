@@ -20,15 +20,17 @@ class IssueCompleter(Completer):
 
     def get_completions(self, document, completion_event):
         already_typed_text = document.text_before_cursor
-        for issue in self._iter_tasks():
-            issuekey = issue.key
-            summary = issue.summary
-            issue_status = issue.status
-            display_meta = (
-                f"{task.parent.key}: {' '.join(task.parent.summary.split()[:2])}..."  # noqa
-                if self.parent_in_meta
-                else None
-            )
+        for task in self._iter_tasks():
+            issuekey = task.key
+            summary = task.summary
+            issue_status = task.status
+            if self.parent_in_meta:
+                parent = task.associated_story()
+                display_meta = (
+                    f"{parent.key}: {' '.join(parent.summary.split()[:2])}..."  # noqa
+                )
+            else:
+                display_meta = None
             if issue_status not in self.ignore_status:
                 if _is_completion(issuekey, summary, already_typed_text):
                     yield Completion(

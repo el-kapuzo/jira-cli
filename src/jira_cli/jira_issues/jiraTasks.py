@@ -1,5 +1,6 @@
 import jira_cli.config
 from jira_cli.jira_issues.jiraTask import JiraTask
+from typing import Iterable
 
 
 class JiraTasks:
@@ -32,10 +33,19 @@ class JiraTasks:
         new_issue = self.task_for(story_key).add_task(summary, estimation)
         self._tasks[new_issue.key] = JiraTask(self.jira, new_issue)
 
-    def iter_subtasks(self):
+    def attachment_for(self, attachment_id):
+        for attachment in self.iter_attachments():
+            if attachment.id == attachment_id:
+                return attachment
+
+    def iter_attachments(self):
+        for story in self.iter_stories():
+            yield from story.attachments
+
+    def iter_subtasks(self) -> Iterable[JiraTask]:
         yield from filter(lambda x: x.is_subtask, self)
 
-    def iter_stories(self):
+    def iter_stories(self) -> Iterable[JiraTask]:
         yield from filter(lambda x: x.is_story, self)
 
     def __iter__(self):

@@ -11,7 +11,7 @@ NAME = "track"
 @Task.command(NAME)
 def track_task(self: Task, issuekey):
     jira_task = self.jiraTasks.task_for(issuekey)
-    jira_task.start_working()
+    jira_task.maybe_start_working()
     print_formatted_text(
         HTML(f"    Working on <b>{jira_task.key}</b>: {jira_task.summary}..."),
     )

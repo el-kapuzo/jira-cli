@@ -1,4 +1,5 @@
 import functools
+from .jiraAttachments import JiraAttachment
 
 
 class JiraTask:
@@ -8,6 +9,7 @@ class JiraTask:
     def __init__(self, jira, issue):
         self.jira = jira
         self.issue = issue
+        self._attachments = None
 
     @functools.cached_property
     def transition_map(self):
@@ -43,15 +45,23 @@ class JiraTask:
 
     @property
     def attachments(self):
-        return self.issue.fields.attachments
+        if self._attachments is None:
+            self._attachments = [
+                JiraAttachment(self.jira, att) for att in self.issue.fields.attachment
+            ]
+        return self._attachments
 
     def add_attachment(self, path):
-        self.jira.add_attachment(self.key, path)
+        attachment = self.jira.add_attachment(self.key, path)
+        self.attachments.append(JiraAttachment(self.jira, attachment))
+
+    def iter_attachments(self):
+        yield from self.attachments
 
     def associated_story(self):
         if self.is_story:
             return self
-        return JiraTask(self.issue.fields.parent)
+        return JiraTask(self.jira, self.issue.fields.parent)
 
     def iter_subtasks(self):
         try:
@@ -81,7 +91,7 @@ class JiraTask:
             self.jira.add_worklog(self.issue, timeSpent=time)
 
     def iter_worklogs(self):
-        # TODO: wrap worklogs with own calss
+        # TODO: wrap worklogs with own class
         # TODO: cache result?
         yield from self.jira.worklogs(self.key)
 
@@ -92,8 +102,11 @@ class JiraTask:
     def close(self):
         self.change_lane("Done")
 
-    def start_working(self):
-        self.change_lane("In Progress")
+    def maybe_start_working(self):
+        try:
+            self.change_lane("In Progress")
+        except KeyError:
+            pass
 
     @functools.cached_property
     def comments(self):
