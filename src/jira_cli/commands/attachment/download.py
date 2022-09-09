@@ -23,7 +23,7 @@ def download_attachment(self: Attachment, attachment_id, path=None):
     if not path.is_dir():
         print("    You need to provide a directory")
         return
-    attachment.download()
+    attachment.download(path)
 
 
 @Attachment.completion_provider(NAME)
