@@ -24,8 +24,9 @@ class Resource:
                 completer_map[name] = DummyCompleter()
         return FuzzyNestedCompleter(completer_map)
 
+    # TOOD: remove this, when every cli-resource is refactored
     def dispatch_command(self, application, command, *args):
-        self.command_handlers[command](application, *args)
+        return self.command_handlers[command](self, *args)
 
     @classmethod
     def command(cls, name):
