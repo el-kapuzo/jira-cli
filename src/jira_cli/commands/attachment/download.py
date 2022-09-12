@@ -2,12 +2,8 @@ import pathlib
 
 from prompt_toolkit.completion import PathCompleter
 
-from jira_cli.queries import all_attachments
 from jira_cli.completion import AttachmentCompleter, ChainCompleter
-
-
 from .attachment import Attachment
-
 
 NAME = "download"
 
@@ -28,5 +24,5 @@ def download_attachment(self: Attachment, attachment_id, path=None):
 
 @Attachment.completion_provider(NAME)
 def download_attachment_completer(application):
-    att_completer = AttachmentCompleter(all_attachments(application.issues))
+    att_completer = AttachmentCompleter(application.jiraTasks.iter_attachments())
     return ChainCompleter(att_completer, PathCompleter())
