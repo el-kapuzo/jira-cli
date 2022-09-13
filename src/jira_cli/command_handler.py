@@ -1,14 +1,14 @@
 from prompt_toolkit.shortcuts import clear
 
 
-def buildCommandHandler(application):
-    handler = CommandHandler()
-    handler.add_observer(JiraCommands(application))
-    handler.add_observer(ApplicationCommands(application))
+def buildCommandDispatcher(application):
+    handler = CommandDispatcher()
+    handler.add_observer(JiraCommandHandler(application))
+    handler.add_observer(ApplicationCommandHandler(application))
     return handler
 
 
-class CommandHandler:
+class CommandDispatcher:
     def __init__(self):
         self.observers = []
 
@@ -20,7 +20,7 @@ class CommandHandler:
         self.observers.append(observer)
 
 
-class JiraCommands:
+class JiraCommandHandler:
     resource_builder = {}
 
     def __init__(self, application):
@@ -38,7 +38,7 @@ class JiraCommands:
             handler.dispatch_command(self.application, *alias_args, *args)
 
 
-class ApplicationCommands:
+class ApplicationCommandHandler:
     def __init__(self, application):
         self.application = application
 

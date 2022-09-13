@@ -7,7 +7,7 @@ def get_dummy_provider(*args, **kwargs):
 
 
 class JiraCompleter(completion.Completer):
-    completion_factories = collections.defaultdict(default_factor=get_dummy_provider)
+    completion_factories = collections.defaultdict(default_factory=get_dummy_provider)
 
     def __init__(self, jira_tasks, *args, **kwargs):
         self.completors = None

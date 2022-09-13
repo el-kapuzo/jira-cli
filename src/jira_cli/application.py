@@ -5,7 +5,7 @@ import prompt_toolkit.completion
 
 import jira_cli.jira_issues.jiraTasks
 from jira_cli.completion import FuzzyNestedCompleter
-from .command_handler import buildCommandHandler
+from .command_handler import buildCommandDispatcher
 from .config import Config
 
 
@@ -28,7 +28,7 @@ class Application:
             name: cls(self.jiraTasks) for name, cls in self.resources.items()
         }
         self.running = False
-        self.command_handler = buildCommandHandler(self)
+        self.command_handler = buildCommandDispatcher(self)
         self.session = prompt_toolkit.PromptSession(
             prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
             completer=prompt_toolkit.completion.DummyCompleter(),
