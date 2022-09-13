@@ -13,7 +13,7 @@ class FuzzyNestedCompleter(completion.Completer):
         if " " in text:
             words = text.split()
             completer = self.completer_map.get(words[0], completion.DummyCompleter())
-            remaining_text = text[len(words[0]) :].lstrip()  # noqa E203
+            remaining_text = text[len(words[0]) :].lstrip()  # noqa e203
             move_cursor = len(text) - len(remaining_text) + stripped_len
             new_document = doc.Document(
                 remaining_text,

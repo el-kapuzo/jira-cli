@@ -7,5 +7,5 @@ def resource(cls):
     command = cls.__name__.lower()
     JiraCommandHandler.resource_builder[command] = cls
     Application.resources[command] = cls
-    JiraCompleter.completion_factories[command] = cls
+    JiraCompleter.completion_factories[command] = cls.buildCompleter
     return cls

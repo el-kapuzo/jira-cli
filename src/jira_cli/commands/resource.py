@@ -29,11 +29,21 @@ class Resource:
         return self.command_handlers[command](self, *args)
 
     @classmethod
+    def buildCompleter(cls, application):
+        completer_factories = getattr(cls, "_completion_providers", {})
+        completer_map = {
+            name: completion_provider(application)
+            for name, completion_provider in completer_factories.items()
+        }
+        return FuzzyNestedCompleter(completer_map)
+
+    @classmethod
     def command(cls, name):
         def decorator(fun):
             if not hasattr(cls, "_command_handlers"):
                 cls._command_handlers = {}
             cls._command_handlers[name] = fun
+            cls.completion_provider(name)(lambda x: DummyCompleter())
             return fun
 
         return decorator

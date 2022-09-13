@@ -4,7 +4,7 @@ import prompt_toolkit
 import prompt_toolkit.completion
 
 import jira_cli.jira_issues.jiraTasks
-from jira_cli.completion import FuzzyNestedCompleter
+from jira_cli.completion import JiraCompleter
 from .command_handler import buildCommandDispatcher
 from .config import Config
 
@@ -34,27 +34,6 @@ class Application:
             completer=prompt_toolkit.completion.DummyCompleter(),
         )
 
-    def build_completer(self):
-        completer_dict = {
-            name: resource.get_completer(self)
-            for name, resource in self.resources.items()
-        }
-
-        def get_completer_for_alias(resource, action):
-            resource_completer = completer_dict[resource]
-            return resource_completer.completer_map[action]
-
-        alias_completer = {
-            alias: get_completer_for_alias(*commands)
-            for alias, commands in self.aliases.items()
-        }
-        completer_dict.update(alias_completer)
-
-        completer_dict["exit"] = prompt_toolkit.completion.DummyCompleter()
-        completer_dict["sync"] = prompt_toolkit.completion.DummyCompleter()
-        completer_dict["clear"] = prompt_toolkit.completion.DummyCompleter()
-        return FuzzyNestedCompleter(completer_dict)
-
     def sync(self):
         self.issues = list(
             self.jira.search_issues(
@@ -63,7 +42,7 @@ class Application:
                 maxResults=False,
             ),
         )
-        self.session.completer = self.build_completer()
+        self.session.completer = JiraCompleter(self)
 
     def dispatch_command(self, command_string, *args):
         try:

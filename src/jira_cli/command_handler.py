@@ -1,4 +1,5 @@
 from prompt_toolkit.shortcuts import clear
+from jira_cli.completion.jira_completer import JiraCompleter
 
 
 def buildCommandDispatcher(application):
@@ -39,6 +40,10 @@ class JiraCommandHandler:
 
 
 class ApplicationCommandHandler:
+    JiraCompleter.addCommand("sync")
+    JiraCompleter.addCommand("exit")
+    JiraCompleter.addCommand("clear")
+
     def __init__(self, application):
         self.application = application
 
