@@ -7,13 +7,14 @@ class JiraTasks:
     def __init__(self, jira, jql):
         self.jira = jira
         self.jql = jql
-        self._tasks = self.fetch_tasks()
+        self._tasks = None
+        self.fetch_tasks()
 
     def task_for(self, issuekey) -> JiraTask:
         return self._tasks[issuekey]
 
     def fetch_tasks(self):
-        return {
+        self._tasks = {
             issue.key: JiraTask(self.jira, issue)
             for issue in self.jira.search_issues(
                 self.jql,

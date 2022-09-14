@@ -1,12 +1,11 @@
 ## Bugs
++ [ ] Aliases do not trigger completion
++ [x] If task has no estimation, it can not be moved to "In Progress". This lead to a discrepancy between the board and the actual status :-O
 
 ## Completion
 + [ ] Rank completion options for subtasks higher, if its parent was recently used
-  + [ ] Implement the possibility to track the last used stories
-    + [ ] Maybe use a kind of Observer-Pattern???
-  + [ ] The _list subtasks, worklog new, track_ commands publish the events
-    + [ ] Unless the the subtask was a _PR review_
-    + [ ] Or the parent was _Timetracking_
+  + [ ] IssueCompleter can register itself to the command-dispatcher
+  + [ ] Then the issue completer can implement internal Ranking logic
 + [ ] Include basic JQL completion engine?
 
 ## Make it look nicer
@@ -26,10 +25,7 @@
 
 ## House-Keeping
 + [ ] Refactor to new JiraTasks class
-  + [x] refactor _worklog_ commands
-  + [x] refactor _attachment_ commands
-  + [ ] refactor _completion engine_
-  + [ ] clean up _application_ class
+
 
 
 ## Configuration

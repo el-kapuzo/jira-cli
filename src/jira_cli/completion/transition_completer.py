@@ -3,8 +3,9 @@ from .issue_completer import IssueCompleter
 
 
 class TransitionCompleter(completion.Completer):
-    def __init__(self, issues, *args, ignore_statuses=None, **kwargs) -> None:
-        self.issueCompleter = IssueCompleter(issues, ignore_statuses=ignore_statuses)
+    def __init__(self, jiraTasks, *args, **kwargs) -> None:
+        self.issueCompleter = IssueCompleter.subtask_completer(jiraTasks)
+        self.jiraTasks = jiraTasks
         self.transitions = ["To-Do", "In Progress", "Done"]
         super().__init__(*args, **kwargs)
 
@@ -15,7 +16,10 @@ class TransitionCompleter(completion.Completer):
             yield from self.issueCompleter.get_completions(document, complete_event)
         else:
             typed_for_transition = " ".join(typed_words[1:])
-            for word in self.transitions:
+            transitions = list(
+                self.jiraTasks.task_for(typed_words[0]).transition_map.keys(),
+            )
+            for word in transitions:
                 if word.lower().startswith(typed_for_transition.lower()):
                     yield completion.Completion(
                         word,

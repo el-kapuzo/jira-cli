@@ -21,28 +21,16 @@ class Application:
     def __init__(self, config: Config):
         self.config = config
         self.jira = config.server.connect()
-        self.jql = config.settings.jql
         self.jiraTasks = jira_cli.jira_issues.jiraTasks.JiraTasks.fromConfig(config)
-        self.issues = []
-        self.resources = {
-            name: cls(self.jiraTasks) for name, cls in self.resources.items()
-        }
         self.running = False
         self.command_handler = buildCommandDispatcher(self)
         self.session = prompt_toolkit.PromptSession(
             prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
-            completer=prompt_toolkit.completion.DummyCompleter(),
+            completer=JiraCompleter(self),
         )
 
     def sync(self):
-        self.issues = list(
-            self.jira.search_issues(
-                self.jql,
-                fields=["attachment", "status", "summary", "issuetype", "parent"],
-                maxResults=False,
-            ),
-        )
-        self.session.completer = JiraCompleter(self)
+        self.jiraTasks.fetch_tasks()
 
     def dispatch_command(self, command_string, *args):
         try:

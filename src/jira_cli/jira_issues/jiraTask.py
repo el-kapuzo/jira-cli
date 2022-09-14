@@ -10,10 +10,15 @@ class JiraTask:
         self.jira = jira
         self.issue = issue
         self._attachments = None
+        self._transition_map = None
 
-    @functools.cached_property
+    @property
     def transition_map(self):
-        return {t["name"]: t["id"] for t in self.jira.transitions(self.issue)}
+        if self._transition_map is None:
+            self._transition_map = {
+                t["name"]: t["id"] for t in self.jira.transitions(self.issue)
+            }
+        return self._transition_map
 
     @functools.cached_property
     def descriptions(self):
@@ -50,6 +55,12 @@ class JiraTask:
                 JiraAttachment(self.jira, att) for att in self.issue.fields.attachment
             ]
         return self._attachments
+
+    @functools.cached_property
+    def original_estimate(self):
+        # We might not have fetched all fields
+        self.issue = self.jira.issue(self.key)
+        return self.issue.fields.timeoriginalestimate
 
     def add_attachment(self, path):
         attachment = self.jira.add_attachment(self.key, path)
@@ -98,15 +109,20 @@ class JiraTask:
     def change_lane(self, new_lane):
         resolution_id = self.transition_map[new_lane]
         self.jira.transition_issue(self.issue, resolution_id)
+        self._transition_map = None
 
     def close(self):
         self.change_lane("Done")
 
     def maybe_start_working(self):
-        try:
+        if self.status == "To Do":
+            # If a task has not been estimated, we can not start working on it
+            if not self._has_been_estimated():
+                self.estimate("1m")
             self.change_lane("In Progress")
-        except KeyError:
-            pass
+
+    def _has_been_estimated(self):
+        return self.original_estimate and self.original_estimate > 0
 
     @functools.cached_property
     def comments(self):
