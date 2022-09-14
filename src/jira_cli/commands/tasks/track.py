@@ -12,10 +12,12 @@ NAME = "track"
 def track_task(self: Task, issuekey):
     jira_task = self.jiraTasks.task_for(issuekey)
     jira_task.maybe_start_working()
-    print_formatted_text(
-        HTML(f"    Working on <b>{jira_task.key}</b>: {jira_task.summary}..."),
-    )
-
+    try:
+        print_formatted_text(
+            HTML(f"    Working on <b>{jira_task.key}</b>: {jira_task.summary}..."),
+        )
+    except Exception:
+        print(f"    Working on {jira_task.key}: {jira_task.summary}...")
     start_time = time.perf_counter()
     pressed_button = _wait_for_resolution()
     stop_time = time.perf_counter()

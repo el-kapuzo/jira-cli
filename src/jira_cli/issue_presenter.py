@@ -17,8 +17,11 @@ def print_issue(issue):
         startColor, endColor = color_map.get(issue_status, ("", ""))
         if issue_type == "Bug":
             startColor, endColor = color_map.get(issue_type, ("", ""))
-    print_formatted_text(
-        HTML(
-            f"    {startColor}<b>{issue.key}</b>: {issue.summary}{endColor}",
-        ),
-    )
+    try:
+        print_formatted_text(
+            HTML(
+                f"    {startColor}<b>{issue.key}</b>: {issue.summary}{endColor}",
+            ),
+        )
+    except Exception:
+        print(f"    {issue.key}: {issue.summary}")
