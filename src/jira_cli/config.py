@@ -31,8 +31,14 @@ class Settings:
 class Aliases:
     aliases: Dict
 
+    def items(self):
+        return self.aliases.items()
+
     def get(self, key, default=None):
         return self.aliases.get(key, default)
+
+    def __iter__(self):
+        return iter(self.aliases)
 
     def __getitem__(self, key):
         return self.aliases[key]

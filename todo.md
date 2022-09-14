@@ -1,6 +1,4 @@
 ## Bugs
-+ [ ] Aliases do not trigger completion
-+ [x] If task has no estimation, it can not be moved to "In Progress". This lead to a discrepancy between the board and the actual status :-O
 
 ## Completion
 + [ ] Rank completion options for subtasks higher, if its parent was recently used
@@ -24,7 +22,6 @@
   + [ ] `add` a story / bug to the current sprint
 
 ## House-Keeping
-+ [ ] Refactor to new JiraTasks class
 
 
 
