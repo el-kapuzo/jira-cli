@@ -11,7 +11,7 @@ setuptools.setup(
     author="el-kap",
     author_email="el.kapuzo@mailbox.com",
     python_requires=">=3.6",
-    description="CL-Commands to interact with jira",
+    description="A interactive terminal prompt to manage jira issues",
     package_dir={"": "src"},
     install_requires=requirements,
     packages=setuptools.find_packages("src"),

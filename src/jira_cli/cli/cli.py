@@ -1,12 +1,8 @@
 from jira_cli.application import Application
 
 
-def getApplication():
-    return Application.buildFromTomlFilePath()
-
-
 def jira():
-    getApplication().run()
+    Application.buildFromTomlFilePath().run()
 
 
 if __name__ == "__main__":
