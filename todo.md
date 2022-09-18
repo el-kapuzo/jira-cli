@@ -11,7 +11,7 @@
   + [ ] There is a `pygments` lexer for rst (for syntax highlighting)
   + [ ] Implement a small rst renderer
 
-## Resources
+## Commands
 + [ ] Config
   + [ ] Update JQL
   + [ ] shortcut for current sprint
@@ -21,11 +21,6 @@
   + [ ] `show` current sprint (_rich_ can render tables)
   + [ ] `add` a story / bug to the current sprint
 
-## House-Keeping
-
-
-
 ## Configuration
 + [ ] Colormaps
-+ [ ] Define available Transitions
 + [ ] Define available Story-Types
