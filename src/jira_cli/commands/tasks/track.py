@@ -1,3 +1,4 @@
+import datetime
 import time
 
 from prompt_toolkit import HTML, print_formatted_text, prompt
@@ -18,13 +19,14 @@ def track_task(self: Task, issuekey):
         )
     except Exception:
         print(f"    Working on {jira_task.key}: {jira_task.summary}...")
+    start_date = datetime.datetime.now()
     start_time = time.perf_counter()
     pressed_button = _wait_for_resolution()
     stop_time = time.perf_counter()
 
     elapsed_time = stop_time - start_time
     worklog_time = _elapsed_time_to_jira_time(elapsed_time)
-    jira_task.add_worklog(worklog_time)
+    jira_task.add_worklog(worklog_time, start_date)
     if pressed_button == "F":
         jira_task.close()
     return issuekey

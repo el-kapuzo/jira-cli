@@ -1,4 +1,6 @@
 import functools
+import typing
+
 from .jiraAttachments import JiraAttachment
 
 
@@ -19,6 +21,10 @@ class JiraTask:
                 t["name"]: t["id"] for t in self.jira.transitions(self.issue)
             }
         return self._transition_map
+
+    @property
+    def available_transitions(self) -> typing.Iterable[str]:
+        return self.transition_map.keys()
 
     @functools.cached_property
     def descriptions(self):
@@ -95,11 +101,16 @@ class JiraTask:
         }
         return self.jira.create_issue(fields=fields)
 
-    def add_worklog(self, time):
+    def add_worklog(self, time, started=None):
         try:
-            self.jira.add_worklog(self.issue, timeSpent=time, reduceBy=time)
+            self.jira.add_worklog(
+                self.issue,
+                timeSpent=time,
+                reduceBy=time,
+                started=started,
+            )
         except Exception:
-            self.jira.add_worklog(self.issue, timeSpent=time)
+            self.jira.add_worklog(self.issue, timeSpent=time, started=started)
 
     def iter_worklogs(self):
         # TODO: wrap worklogs with own class
@@ -110,6 +121,7 @@ class JiraTask:
         resolution_id = self.transition_map[new_lane]
         self.jira.transition_issue(self.issue, resolution_id)
         self._transition_map = None
+        self.issue = self.jira.issue(self.key)
 
     def close(self):
         self.change_lane("Done")
