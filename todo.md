@@ -1,6 +1,7 @@
 ## Bugs
 
 ## Completion
++ [ ] Add completer for resolutions.
 + [ ] Rank completion options for subtasks higher, if its parent was recently used
   + [ ] IssueCompleter can register itself to the command-dispatcher
   + [ ] Then the issue completer can implement internal Ranking logic
@@ -12,6 +13,8 @@
   + [ ] Implement a small rst renderer
 
 ## Commands
++ [ ] `task move <id> <resolution>` also should accept a resolution
++ [ ] `story close <resolution>`
 + [ ] Config
   + [ ] Update JQL
   + [ ] shortcut for current sprint

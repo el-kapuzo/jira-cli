@@ -6,7 +6,6 @@ class TransitionCompleter(completion.Completer):
     def __init__(self, jiraTasks, *args, **kwargs) -> None:
         self.issueCompleter = IssueCompleter.subtask_completer(jiraTasks)
         self.jiraTasks = jiraTasks
-        self.transitions = ["To-Do", "In Progress", "Done"]
         super().__init__(*args, **kwargs)
 
     def get_completions(self, document, complete_event):
@@ -17,7 +16,7 @@ class TransitionCompleter(completion.Completer):
         else:
             typed_for_transition = " ".join(typed_words[1:])
             transitions = list(
-                self.jiraTasks.task_for(typed_words[0]).transition_map.keys(),
+                self.jiraTasks.task_for(typed_words[0]).available_transitions,
             )
             for word in transitions:
                 if word.lower().startswith(typed_for_transition.lower()):
