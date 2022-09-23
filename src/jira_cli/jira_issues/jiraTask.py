@@ -36,6 +36,10 @@ class JiraTask:
         return self.issue.key
 
     @property
+    def parent_key(self):
+        return self.issue.fields.parent.key
+
+    @property
     def summary(self) -> str:
         return self.issue.fields.summary
 
@@ -77,14 +81,6 @@ class JiraTask:
     def iter_attachments(self) -> Iterable[JiraAttachment]:
         DeprecationWarning("Use .attachments instead")
         yield from self.attachments
-
-    # TODO: refactor: move that to JiraTasks:
-    # JiraTasks.associated_story(self, issue_key) -> JiraTask
-    # we need a method/property to the parent.key
-    def associated_story(self) -> "JiraTask":
-        if self.is_story:
-            return self
-        return JiraTask(self.jira, self.issue.fields.parent)
 
     def iter_subtasks(self) -> Iterable["JiraTask"]:
         try:

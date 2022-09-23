@@ -25,7 +25,7 @@ class IssueCompleter(Completer):
             summary = task.summary
             issue_status = task.status
             if self.parent_in_meta:
-                parent = task.associated_story()
+                parent = self.jira_tasks.associated_story(issuekey)
                 display_meta = (
                     f"{parent.key}: {' '.join(parent.summary.split()[:2])}..."  # noqa
                 )

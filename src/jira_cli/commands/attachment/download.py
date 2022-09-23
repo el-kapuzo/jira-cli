@@ -10,7 +10,6 @@ NAME = "download"
 
 @Attachment.command(NAME)
 def download_attachment(self: Attachment, attachment_id, path=None):
-    # TODO: how to best get the attachment?
     attachment = self.jiraTasks.attachment_for(attachment_id)
     if path:
         path = pathlib.Path(path)
