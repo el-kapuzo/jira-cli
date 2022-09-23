@@ -1,5 +1,6 @@
 import functools
-import typing
+from jira import JIRA, Issue
+from typing import Any, Iterable, List
 
 from .jiraAttachments import JiraAttachment
 
@@ -8,14 +9,14 @@ class JiraTask:
     NOT_A_STORY_TYPE = {"Sub-task"}
     SUBTASK_TYPES = {"Sub-task"}
 
-    def __init__(self, jira, issue):
+    def __init__(self, jira: JIRA, issue: Issue):
         self.jira = jira
         self.issue = issue
         self._attachments = None
         self._transition_map = None
 
     @property
-    def transition_map(self):
+    def transition_map(self) -> dict[str, Any]:
         if self._transition_map is None:
             self._transition_map = {
                 t["name"]: t["id"] for t in self.jira.transitions(self.issue)
@@ -23,39 +24,39 @@ class JiraTask:
         return self._transition_map
 
     @property
-    def available_transitions(self) -> typing.Iterable[str]:
+    def available_transitions(self) -> Iterable[str]:
         return self.transition_map.keys()
 
     @functools.cached_property
-    def descriptions(self):
+    def descriptions(self) -> str:
         return self.jira.issue(self.issue.key).fields.description
 
     @property
-    def key(self):
+    def key(self) -> str:
         return self.issue.key
 
     @property
-    def summary(self):
+    def summary(self) -> str:
         return self.issue.fields.summary
 
     @property
-    def status(self):
+    def status(self) -> str:
         return self.issue.fields.status.name
 
     @property
-    def issue_type(self):
+    def issue_type(self) -> str:
         return self.issue.fields.issuetype
 
     @property
-    def is_story(self):
+    def is_story(self) -> bool:
         return str(self.issue_type) not in self.NOT_A_STORY_TYPE
 
     @property
-    def is_subtask(self):
+    def is_subtask(self) -> bool:
         return str(self.issue_type) in self.SUBTASK_TYPES
 
     @property
-    def attachments(self):
+    def attachments(self) -> List[JiraAttachment]:
         if self._attachments is None:
             self._attachments = [
                 JiraAttachment(self.jira, att) for att in self.issue.fields.attachment
@@ -68,29 +69,34 @@ class JiraTask:
         self.issue = self.jira.issue(self.key)
         return self.issue.fields.timeoriginalestimate
 
-    def add_attachment(self, path):
+    def add_attachment(self, path) -> JiraAttachment:
         attachment = self.jira.add_attachment(self.key, path)
         self.attachments.append(JiraAttachment(self.jira, attachment))
+        return attachment
 
-    def iter_attachments(self):
+    def iter_attachments(self) -> Iterable[JiraAttachment]:
+        DeprecationWarning("Use .attachments instead")
         yield from self.attachments
 
-    def associated_story(self):
+    # TODO: refactor: move that to JiraTasks:
+    # JiraTasks.associated_story(self, issue_key) -> JiraTask
+    # we need a method/property to the parent.key
+    def associated_story(self) -> "JiraTask":
         if self.is_story:
             return self
         return JiraTask(self.jira, self.issue.fields.parent)
 
-    def iter_subtasks(self):
+    def iter_subtasks(self) -> Iterable["JiraTask"]:
         try:
             yield from map(lambda x: JiraTask(self.jira, x), self.issue.fields.subtasks)
         except Exception:
             yield from ()
 
-    def estimate(self, estimation):
+    def estimate(self, estimation) -> None:
         fields = {"timetracking": {"originalEstimate": estimation}}
         self.issue.update(fields=fields)
 
-    def add_task(self, summary, estimate):
+    def add_task(self, summary, estimate) -> "JiraTask":
         assert self.is_story  # noqa: S101
         fields = {
             "project": {"key": "PYT"},
@@ -99,8 +105,10 @@ class JiraTask:
             "timetracking": {"originalEstimate": estimate},
             "parent": {"key": self.key},
         }
-        return self.jira.create_issue(fields=fields)
+        new_issue = self.jira.create_issue(fields=fields)
+        return JiraTask(self.jira, new_issue)
 
+    # TODO: wrap worklogs for, then add type hints
     def add_worklog(self, time, started=None):
         try:
             self.jira.add_worklog(
@@ -117,23 +125,23 @@ class JiraTask:
         # TODO: cache result?
         yield from self.jira.worklogs(self.key)
 
-    def change_lane(self, new_lane):
+    def change_lane(self, new_lane) -> None:
         resolution_id = self.transition_map[new_lane]
         self.jira.transition_issue(self.issue, resolution_id)
         self._transition_map = None
         self.issue = self.jira.issue(self.key)
 
-    def close(self):
+    def close(self) -> None:
         self.change_lane("Done")
 
-    def maybe_start_working(self):
+    def maybe_start_working(self) -> None:
         if self.status == "To Do":
             # If a task has not been estimated, we can not start working on it
             if not self._has_been_estimated():
                 self.estimate("1m")
             self.change_lane("In Progress")
 
-    def _has_been_estimated(self):
+    def _has_been_estimated(self) -> bool:
         return self.original_estimate and self.original_estimate > 0
 
     @functools.cached_property

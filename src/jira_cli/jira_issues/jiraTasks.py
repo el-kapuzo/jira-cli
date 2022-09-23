@@ -1,19 +1,20 @@
+from jira import JIRA
 import jira_cli.config
 from jira_cli.jira_issues.jiraTask import JiraTask
 from typing import Iterable
 
 
 class JiraTasks:
-    def __init__(self, jira, jql):
+    def __init__(self, jira: JIRA, jql: str):
         self.jira = jira
         self.jql = jql
         self._tasks = None
         self.fetch_tasks()
 
-    def task_for(self, issuekey) -> JiraTask:
+    def task_for(self, issuekey: str) -> JiraTask:
         return self._tasks[issuekey]
 
-    def fetch_tasks(self):
+    def fetch_tasks(self) -> None:
         self._tasks = {
             issue.key: JiraTask(self.jira, issue)
             for issue in self.jira.search_issues(
@@ -30,11 +31,12 @@ class JiraTasks:
             )
         }
 
-    def add_sub_task(self, story_key, summary, estimation):
-        new_issue = self.task_for(story_key).add_task(summary, estimation)
-        self._tasks[new_issue.key] = JiraTask(self.jira, new_issue)
+    def add_sub_task(self, story_key: str, summary: str, estimation: str) -> JiraTask:
+        new_task = self.task_for(story_key).add_task(summary, estimation)
+        self._tasks[new_task.key] = new_task
+        return new_task
 
-    def attachment_for(self, attachment_id):
+    def attachment_for(self, attachment_id: str):
         for attachment in self.iter_attachments():
             if attachment.id == attachment_id:
                 return attachment
@@ -49,7 +51,7 @@ class JiraTasks:
     def iter_stories(self) -> Iterable[JiraTask]:
         yield from filter(lambda x: x.is_story, self)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterable[JiraTask]:
         yield from self._tasks.values()
 
     @classmethod
