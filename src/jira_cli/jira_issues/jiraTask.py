@@ -142,7 +142,7 @@ class JiraTask:
 
     @functools.cached_property
     def comments(self):
-        # TODO: (maybe?) wrap jira comment in JiraComment class
+        # TODO: (maybe?) wrap jira comment in JiraComment class, then cache results
         return self.jira.comments(self.key)
 
     def add_comment(self, body):

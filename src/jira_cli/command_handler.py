@@ -3,19 +3,21 @@ from jira_cli.completion.jira_completer import JiraCompleter
 
 
 def buildCommandDispatcher(application):
-    handler = CommandDispatcher()
+    handler = CommandDispatcher(application.config.aliases)
     handler.add_observer(JiraCommandHandler(application))
     handler.add_observer(ApplicationCommandHandler(application))
     return handler
 
 
 class CommandDispatcher:
-    def __init__(self):
+    def __init__(self, aliases):
         self.observers = []
+        self.aliases = aliases
 
     def dispatch_command(self, command, *args):
+        command, *alias_args = self.aliases.resolve_alias(command)
         for observer in self.observers:
-            observer.dispatch_command(command, *args)
+            observer.dispatch_command(command, *alias_args, *args)
 
     def add_observer(self, observer):
         self.observers.append(observer)
@@ -25,7 +27,6 @@ class JiraCommandHandler:
     resource_builder = {}
 
     def __init__(self, application):
-        self.aliases = application.config.aliases
         self.resources = {
             name: builder(application.jiraTasks)
             for name, builder in self.resource_builder.items()
@@ -33,10 +34,9 @@ class JiraCommandHandler:
         self.application = application
 
     def dispatch_command(self, command, *args):
-        command, *alias_args = self.aliases.resolve_alias(command)
         handler = self.resources.get(command, None)
         if handler:
-            handler.dispatch_command(self.application, *alias_args, *args)
+            handler.dispatch_command(command, *args)
 
 
 class ApplicationCommandHandler:
