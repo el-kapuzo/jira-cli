@@ -42,14 +42,11 @@ class Application:
         self.sync()
         self.running = True
         while self.running:
-            inputs = self.session.prompt().split()
+            inputs = self.session.prompt()
             if len(inputs) == 0:
                 continue
-            if len(inputs) > 1:
-                command, args = inputs[0], inputs[1:]
             else:
-                command = inputs[0]
-                args = []
+                command, *args = inputs.split()
             self.dispatch_command(command, *args)
 
     @classmethod

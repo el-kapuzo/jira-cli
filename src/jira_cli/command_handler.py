@@ -36,7 +36,7 @@ class JiraCommandHandler:
     def dispatch_command(self, command, *args):
         handler = self.resources.get(command, None)
         if handler:
-            handler.dispatch_command(command, *args)
+            handler.dispatch_command(*args)
 
 
 class ApplicationCommandHandler:
