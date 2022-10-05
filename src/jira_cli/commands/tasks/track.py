@@ -1,9 +1,7 @@
-import datetime
-import time
-
 from prompt_toolkit import HTML, print_formatted_text, prompt
 
 from jira_cli.completion import IssueCompleter
+from jira_cli.jira_issues.pendingWorklog import PendingWorklog
 from .task import Task
 
 NAME = "track"
@@ -19,14 +17,11 @@ def track_task(self: Task, issuekey):
         )
     except Exception:
         print(f"    Working on {jira_task.key}: {jira_task.summary}...")
-    start_date = datetime.datetime.now()
-    start_time = time.perf_counter()
+    # TODO: this can be done with some generator magic
+    # or even with a context-manager just for the fun :D
+    worklog = PendingWorklog()
     pressed_button = _wait_for_resolution()
-    stop_time = time.perf_counter()
-
-    elapsed_time = stop_time - start_time
-    worklog_time = _elapsed_time_to_jira_time(elapsed_time)
-    jira_task.add_worklog(worklog_time, start_date)
+    worklog.commit(jira_task)
     if pressed_button == "F":
         jira_task.close()
     return issuekey
@@ -41,12 +36,6 @@ def _wait_for_resolution():
         value = prompt("(P) / (F) > ")
         pressed_button = value.upper()[0]
     return pressed_button
-
-
-def _elapsed_time_to_jira_time(elapsed_time_in_s):
-    elapsed_time = int(elapsed_time_in_s)
-    elapsed_time_in_min = elapsed_time // 60
-    return f"{elapsed_time_in_min}m"
 
 
 @Task.completion_provider(NAME)
