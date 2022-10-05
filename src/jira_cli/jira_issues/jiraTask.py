@@ -7,7 +7,7 @@ from .jiraAttachments import JiraAttachment
 
 class JiraTask:
     NOT_A_STORY_TYPE = {"Sub-task"}
-    SUBTASK_TYPES = {"Sub-task"}
+    SUBTASK_TYPES = {"Sub-task", "Task"}
 
     def __init__(self, jira: JIRA, issue: Issue):
         self.jira = jira
@@ -130,12 +130,15 @@ class JiraTask:
     def close(self) -> None:
         self.change_lane("Done")
 
-    def maybe_start_working(self) -> None:
+    def start_working(self) -> None:
         if self.status == "To Do":
             # If a task has not been estimated, we can not start working on it
             if not self._has_been_estimated():
                 self.estimate("1m")
-            self.change_lane("In Progress")
+            try:
+                self.change_lane("In Progress")
+            except KeyError:
+                pass
 
     def _has_been_estimated(self) -> bool:
         return self.original_estimate and self.original_estimate > 0
