@@ -1,9 +1,11 @@
 from prompt_toolkit.completion import DummyCompleter
+
+import jira_cli.jira_issues.jiraTasks
 from jira_cli.completion import FuzzyNestedCompleter
 
 
 class Resource:
-    def __init__(self, jiraTasks):
+    def __init__(self, jiraTasks: jira_cli.jira_issues.jiraTasks.JiraTasks):
         self.jiraTasks = jiraTasks
 
     @property
