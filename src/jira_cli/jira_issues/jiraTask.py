@@ -1,8 +1,9 @@
 import functools
 from jira import JIRA, Issue
-from typing import Any, Iterable, List
+from typing import Any, Generator, Iterable, List
 
 from .jiraAttachments import JiraAttachment
+from .pendingWorklog import PendingWorklog
 
 
 class JiraTask:
@@ -139,6 +140,14 @@ class JiraTask:
                 self.change_lane("In Progress")
             except KeyError:
                 pass
+
+    def track(self) -> Generator[PendingWorklog, bool, Any]:
+        self.start_working()
+        worklog = PendingWorklog()
+        shouldClose = yield worklog
+        if shouldClose:
+            self.close()
+        return worklog.commit(self)
 
     def _has_been_estimated(self) -> bool:
         return self.original_estimate and self.original_estimate > 0
