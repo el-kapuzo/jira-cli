@@ -17,7 +17,6 @@ def track_task(self: Task, issuekey):
         print(f"    Working on {jira_task.key}: {jira_task.summary}...")
 
     tracker = jira_task.track()
-    tracker.send(None)
     tracker.send(_wait_for_resolution())
 
 

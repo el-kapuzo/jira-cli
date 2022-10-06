@@ -142,12 +142,19 @@ class JiraTask:
                 pass
 
     def track(self) -> Generator[PendingWorklog, bool, Any]:
-        self.start_working()
-        worklog = PendingWorklog()
-        shouldClose = yield worklog
-        if shouldClose:
-            self.close()
-        return worklog.commit(self)
+        def _track():
+            self.start_working()
+            worklog = PendingWorklog()
+            shouldClose = yield worklog
+            worklog = worklog.commit(self)
+            if shouldClose:
+                self.close()
+            return worklog
+
+        generator = _track()
+        # Prime the generator!
+        generator.send(None)
+        return generator
 
     def _has_been_estimated(self) -> bool:
         return self.original_estimate and self.original_estimate > 0
