@@ -9,8 +9,6 @@
 
 ## Make it look nicer
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
-  + [ ] There is a `pygments` lexer for rst (for syntax highlighting)
-  + [ ] Implement a small rst renderer
 
 ## Commands
 + [ ] `task move <id> <resolution>` also should accept a resolution
@@ -20,6 +18,7 @@
   + [ ] shortcut for current sprint
   + [ ] shortcut for next sprint?
   + [ ] shortcut for all future sprints
+  + [ ] shortcut for the backlog
 + [ ] Sprint
   + [ ] `show` current sprint (_rich_ can render tables)
   + [ ] `add` a story / bug to the current sprint

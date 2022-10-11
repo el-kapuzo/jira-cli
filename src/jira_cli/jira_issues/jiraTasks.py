@@ -2,6 +2,7 @@ from jira import JIRA
 import jira_cli.config
 from .jiraAttachments import JiraAttachment
 from .jiraTask import JiraTask
+from .jiraWorklog import JiraWorklog
 from typing import Iterable
 
 
@@ -11,6 +12,11 @@ class JiraTasks:
         self.jql = jql
         self._tasks = None
         self.fetch_tasks()
+
+    @property
+    def worklogs(self) -> Iterable[JiraWorklog]:
+        for task in self:
+            yield from task.worklogs
 
     def task_for(self, issuekey: str) -> JiraTask:
         return self._tasks[issuekey]

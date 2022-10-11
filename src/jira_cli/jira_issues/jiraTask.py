@@ -1,9 +1,11 @@
+import datetime
 import functools
 from jira import JIRA, Issue
-from typing import Any, Generator, Iterable, List
+from typing import Any, Generator, Iterable, List, Optional
 
 from .jiraAttachments import JiraAttachment
 from .pendingWorklog import PendingWorklog
+from .jiraWorklog import JiraWorklog
 
 
 class JiraTask:
@@ -15,6 +17,7 @@ class JiraTask:
         self.issue = issue
         self._attachments = None
         self._transition_map = None
+        self._worklogs = None
 
     @property
     def transition_map(self) -> dict[str, Any]:
@@ -74,14 +77,18 @@ class JiraTask:
         self.issue = self.jira.issue(self.key)
         return self.issue.fields.timeoriginalestimate
 
+    @property
+    def worklogs(self):
+        if self._worklogs is None:
+            self._worklogs = [
+                JiraWorklog(worklog) for worklog in self.jira.worklogs(self.key)
+            ]
+        return self._worklogs
+
     def add_attachment(self, path) -> JiraAttachment:
         attachment = self.jira.add_attachment(self.key, path)
         self.attachments.append(JiraAttachment(self.jira, attachment))
         return attachment
-
-    def iter_attachments(self) -> Iterable[JiraAttachment]:
-        DeprecationWarning("Use .attachments instead")
-        yield from self.attachments
 
     def iter_subtasks(self) -> Iterable["JiraTask"]:
         try:
@@ -105,22 +112,31 @@ class JiraTask:
         new_issue = self.jira.create_issue(fields=fields)
         return JiraTask(self.jira, new_issue)
 
-    # TODO: wrap worklogs for, then add type hints
-    def add_worklog(self, time, started=None):
+    def add_worklog(
+        self,
+        time: str,
+        started: Optional[datetime.datetime] = None,
+    ) -> JiraWorklog:
         try:
-            self.jira.add_worklog(
+            worklog = self.jira.add_worklog(
                 self.issue,
                 timeSpent=time,
                 reduceBy=time,
                 started=started,
             )
         except Exception:
-            self.jira.add_worklog(self.issue, timeSpent=time, started=started)
+            worklog = self.jira.add_worklog(self.issue, timeSpent=time, started=started)
+        wrappedWorklog = JiraWorklog(worklog)
+        self.worklogs.append(wrappedWorklog)
+        return wrappedWorklog
 
-    def iter_worklogs(self):
-        # TODO: wrap worklogs with own class
-        # TODO: cache result?
-        yield from self.jira.worklogs(self.key)
+    def delete_worklog(self, worklog_id: str):
+        itemToRemove = None
+        for idx, worklog in enumerate(self.worklogs):
+            if worklog.id == worklog_id:
+                worklog.delete()
+                itemToRemove = idx
+        self.worklogs.pop(itemToRemove)
 
     def change_lane(self, new_lane) -> None:
         resolution_id = self.transition_map[new_lane]
