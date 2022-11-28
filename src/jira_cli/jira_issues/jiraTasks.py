@@ -33,6 +33,7 @@ class JiraTasks:
                     "issuetype",
                     "parent",
                     "subtasks",
+                    "timeoriginalestimate",
                 ],
                 maxResults=False,
             )

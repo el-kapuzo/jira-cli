@@ -8,12 +8,11 @@ NAME = "estimate"
 
 
 @Task.command(NAME)
-def add_estimate(application, issuekKey, estimate=None):
-    issue = application.jira.issue(issuekKey)
-    if estimate is None:
-        estimate = prompt("estimate:  ")
-    fields = {"timetracking": {"originalEstimate": estimate}}
-    issue.update(fields=fields)
+def add_estimate(self: Task, issuekKey, estimation=None):
+    if estimation is None:
+        estimation = prompt("estimate:  ")
+    task = self.jiraTasks.task_for(issuekKey)
+    task.estimate(estimation)
     return issuekKey
 
 

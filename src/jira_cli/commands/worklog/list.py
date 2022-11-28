@@ -9,7 +9,7 @@ def list_worklogs(self: Worklog, issuekey=None):
     if issuekey is None:
         print("Not yet implemented. Please provide an issuekey.")
     else:
-        for worklog in self.jiraTasks.task_for(issuekey).worklogs():
+        for worklog in self.jiraTasks.task_for(issuekey).worklogs:
             print(f"    Id: {worklog.id}, {worklog.author}, {worklog.timeSpent}")
 
 

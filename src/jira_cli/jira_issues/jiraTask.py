@@ -73,8 +73,6 @@ class JiraTask:
 
     @functools.cached_property
     def original_estimate(self):
-        # We might not have fetched all fields
-        self.issue = self.jira.issue(self.key)
         return self.issue.fields.timeoriginalestimate
 
     @property
@@ -105,7 +103,7 @@ class JiraTask:
         fields = {
             "project": {"key": "PYT"},
             "summary": summary,
-            "issuetype": "Sub-task",
+            "issuetype": 10003,
             "timetracking": {"originalEstimate": estimate},
             "parent": {"key": self.key},
         }
