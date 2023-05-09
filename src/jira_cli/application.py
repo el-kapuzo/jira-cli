@@ -25,7 +25,7 @@ class Application:
         self.running = False
         self.command_handler = buildCommandDispatcher(self)
         self.session = prompt_toolkit.PromptSession(
-            prompt_toolkit.HTML("<ansiblue><b>[PYT]</b></ansiblue> ❯ "),
+            prompt_toolkit.HTML(config.settings.prompt + " ❯ "),
             completer=JiraCompleter(self),
         )
 

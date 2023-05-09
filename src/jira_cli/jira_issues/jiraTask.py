@@ -101,7 +101,7 @@ class JiraTask:
     def add_task(self, summary, estimate) -> "JiraTask":
         assert self.is_story  # noqa: S101
         fields = {
-            "project": {"key": "PYT"},
+            "project": {"key": "AID"},
             "summary": summary,
             "issuetype": 10003,
             "timetracking": {"originalEstimate": estimate},

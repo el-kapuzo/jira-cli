@@ -11,7 +11,7 @@
 + [ ] Render richText (maybe try `pip install rich` and a rst-> md converter)
 
 ## Commands
-+ [ ] `task move <id> <resolution>` also should accept a resolution
++ [ ] `task move <id> #<resolution>#` also should accept a resolution
 + [ ] `story close <resolution>`
 + [ ] Config
   + [ ] Update JQL

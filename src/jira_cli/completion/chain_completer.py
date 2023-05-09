@@ -28,6 +28,6 @@ class ChainCompleter(completion.Completer):
 
     def should_yield_from_second(self, text):
         if isinstance(self.first_completer, IssueCompleter):
-            return text.startswith("PYT") and " " in text
+            return text.startswith("AID") and " " in text
         else:
             return " " in text
