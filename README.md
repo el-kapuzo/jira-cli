@@ -4,7 +4,7 @@ An interactive prompt to manage my daily JIRA-workflow inside my terminal.
 
 ## Install
 
-1. Clone this repsotiroy: `git clone https://github.com/el-kapuzo/jira-cli`
+1. Clone this repsotiroy: `git clone https://codeberg.org/dapo/jira-cli.git
 2. (Optionally) Create a python venv, and activate it
 3. Run `pip install <path/to/jira-cli>`
 4. Create an API-Token for the JIRA REST-api
